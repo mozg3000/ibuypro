@@ -15,9 +15,9 @@ class VueAssets extends AssetBundle
         './css/app.30790115300ab27614ce176899523b62.css'
     ];
     public $js = [
-        './js/manifest.2ae2e69a05c33dfc65f8.js',
-        './js/vendor.e00e51762311e00a2108.js',
-        './js/app.b22ce679862c47a75225.js'
+        'js/about.8cdd73dd.js',
+        'js/chunk-vendors.9083c1d3.js',
+        'js/app.3af22400.js'
         ];
     public function init()
     {
