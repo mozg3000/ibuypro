@@ -2,6 +2,8 @@
 
 namespace app\controllers;
 
+use app\lib\ibuypro\Graph;
+use app\lib\ibuypro\IbuyproAlgorithm;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -124,5 +126,37 @@ class SiteController extends Controller
     public function actionAbout()
     {
         return $this->render('about');
+    }
+
+    public function actionIbuypro()
+    {
+        $graph = new Graph([
+            1 => [[4, 50]],
+            2 => [[3, 50], [7, 50]],
+            3 => [[2, 50], [4, 50]],
+            4 => [[1, 50], [3, 50],[5, 50],[9, 50]],
+            5 => [[4, 50], [6, 50]],
+            6 => [[5, 50], [11, 50]],
+            7 => [[2, 50], [8, 50],[12, 50]],
+            8 => [[7, 50], [9, 50]],
+            9 => [[4, 50], [8, 50],[10, 50], [14, 50]],
+            10 => [[9, 50], [11, 50]],
+            11 => [[6, 50], [10, 50],[16, 50]],
+            12 => [[7, 50], [13, 50]],
+            13 => [[12, 50], [14, 50]],
+            14 => [[9, 50], [13, 50],[15, 50]],
+            15 => [[14, 50], [16, 50]],
+            16 => [[11, 50], [15, 50]]
+        ]);
+        $solve = new IbuyproAlgorithm($graph, 13, [11,5]);
+        $path = $solve->findPath();
+//        foreach ($graph->getGraph() as $k => $v){
+//            print_r($k ); echo '<br>';
+//            foreach ($v as $item){
+//                print_r($item );
+//            }
+//        }
+//        exit;
+        return $this->render('ibuypro', ['path'=>$path]);
     }
 }
