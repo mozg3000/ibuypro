@@ -36,8 +36,11 @@ class AuthComponent extends Component
         $model->token = $this->generateToken();
 
         if($model->save()){
+            $role = \Yii::$app->authManager->getRole('user');
+            \Yii::$app->authManager->assign($role, $model->getId());
             return true;
         }
+        return false;
     }
     private function validatePassword($password, $passwordHash)
     {
