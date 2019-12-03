@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "users".
@@ -15,7 +16,7 @@ use Yii;
  * @property string|null $auth_key
  * @property string $create_at
  */
-class UsersBase extends \yii\db\ActiveRecord
+class UsersBase extends ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -31,14 +32,13 @@ class UsersBase extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['username', 'email', 'password_hash'], 'required'],
+////            [['username', 'email', 'password_hash'], 'required'],
+            [['username', 'password_hash'], 'required'],
             [['create_at'], 'safe'],
             [['username'], 'string', 'max' => 50],
             [['email'], 'string', 'max' => 255],
             [['password_hash'], 'string', 'max' => 300],
-            [['token', 'auth_key'], 'string', 'max' => 150],
-            [['username'], 'unique'],
-            [['email'], 'unique'],
+            [['token', 'auth_key'], 'string', 'max' => 150]
         ];
     }
 

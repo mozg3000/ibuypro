@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\web\IdentityInterface;
 
 /**
  * This is the model class for table "users".
@@ -15,46 +16,114 @@ use Yii;
  * @property string|null $auth_key
  * @property string $create_at
  */
-class Users extends \yii\db\ActiveRecord
+
+class Users extends UsersBase implements IdentityInterface
 {
-    /**
-     * {@inheritdoc}
-     */
-    public static function tableName()
+    public $password;
+
+    const SCENARIO_SIGNUP = 'signup';
+    const SCENARIO_SIGNIN = 'signin';
+
+    public function scenarioSignUp():self
     {
-        return 'users';
+        $this->setScenario(self::SCENARIO_SIGNUP);
+        return $this;
+
+    }
+    public function scenarioSignIn():self
+    {
+        $this->setScenario(self::SCENARIO_SIGNIN);
+        return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
+    public function scenarios()
+    {
+        return array_merge([
+           self::SCENARIO_SIGNUP => ['username','email', 'password'],
+           self::SCENARIO_SIGNIN => ['username', 'password']
+        ],parent::scenarios());
+    }
+
     public function rules()
     {
-        return [
-            [['username', 'email', 'password_hash'], 'required'],
-            [['create_at'], 'safe'],
-            [['username'], 'string', 'max' => 50],
-            [['email'], 'string', 'max' => 255],
-            [['password_hash'], 'string', 'max' => 300],
-            [['token', 'auth_key'], 'string', 'max' => 150],
-            [['username'], 'unique'],
-            [['email'], 'unique'],
-        ];
+        return array_merge([
+            ['password', 'required'],
+            ['password', 'string', 'min' => 8],
+            ['email', 'required', 'on' => self::SCENARIO_SIGNUP],
+            [['username'], 'unique', 'on'=>self::SCENARIO_SIGNUP],
+            [['username'], 'exist', 'on' => self::SCENARIO_SIGNIN],
+            [['email'], 'unique', 'on'=>self::SCENARIO_SIGNUP],
+            [['email'], 'exist', 'on' => self::SCENARIO_SIGNIN],
+        ],parent::rules());
     }
 
     /**
-     * {@inheritdoc}
+     * Finds an identity by the given ID.
+     * @param string|int $id the ID to be looked for
+     * @return IdentityInterface|null the identity object that matches the given ID.
+     * Null should be returned if such an identity cannot be found
+     * or the identity is not in an active state (disabled, deleted, etc.)
      */
-    public function attributeLabels()
+    public static function findIdentity($id)
     {
-        return [
-            'id' => Yii::t('app', 'ID'),
-            'username' => Yii::t('app', 'Username'),
-            'email' => Yii::t('app', 'Email'),
-            'password_hash' => Yii::t('app', 'Password Hash'),
-            'token' => Yii::t('app', 'Token'),
-            'auth_key' => Yii::t('app', 'Auth Key'),
-            'create_at' => Yii::t('app', 'Create At'),
-        ];
+       return Users::find()->andWhere(['id' => $id])->one();
+    }
+
+    /**
+     * Finds an identity by the given token.
+     * @param mixed $token the token to be looked for
+     * @param mixed $type the type of the token. The value of this parameter depends on the implementation.
+     * For example, [[\yii\filters\auth\HttpBearerAuth]] will set this parameter to be `yii\filters\auth\HttpBearerAuth`.
+     * @return IdentityInterface|null the identity object that matches the given token.
+     * Null should be returned if such an identity cannot be found
+     * or the identity is not in an active state (disabled, deleted, etc.)
+     */
+    public static function findIdentityByAccessToken($token, $type = null)
+    {
+        // TODO: Implement findIdentityByAccessToken() method.
+    }
+
+    /**
+     * Returns an ID that can uniquely identify a user identity.
+     * @return string|int an ID that uniquely identifies a user identity.
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Returns a key that can be used to check the validity of a given identity ID.
+     *
+     * The key should be unique for each individual user, and should be persistent
+     * so that it can be used to check the validity of the user identity.
+     *
+     * The space of such keys should be big enough to defeat potential identity attacks.
+     *
+     * This is required if [[User::enableAutoLogin]] is enabled. The returned key will be stored on the
+     * client side as a cookie and will be used to authenticate user even if PHP session has been expired.
+     *
+     * Make sure to invalidate earlier issued authKeys when you implement force user logout, password change and
+     * other scenarios, that require forceful access revocation for old sessions.
+     *
+     * @return string a key that is used to check the validity of a given identity ID.
+     * @see validateAuthKey()
+     */
+    public function getAuthKey()
+    {
+        return $this->auth_key;
+    }
+
+    /**
+     * Validates the given auth key.
+     *
+     * This is required if [[User::enableAutoLogin]] is enabled.
+     * @param string $authKey the given auth key
+     * @return bool whether the given auth key is valid.
+     * @see getAuthKey()
+     */
+    public function validateAuthKey($authKey)
+    {
+        return $this->auth_key === $authKey;
     }
 }
