@@ -52,6 +52,11 @@
                                             required
                                             :rules="passwordRule"
                                     />
+                                    <p
+                                            class="error-p"
+                                            v-show="error" >
+                                        {{msg}}
+                                    </p>
                                 </v-form>
                             </v-card-text>
                             <v-card-actions>
@@ -83,6 +88,8 @@
             username:'',
             password:'',
             valid: false,
+            error: false,
+            msg:'',
             usernameRules:[
                 v => !!v || 'Необходимое поле',
                 v => v.length <= 50 || 'Имя максимально 50 символов',
@@ -108,8 +115,22 @@
                         url: '/auth/sign-in',
                         data: bodyFormData,
                         headers: {'Content-Type': 'multipart/form-data' }
-                    }).then(response => console.log(JSON.parse(response.data).token))
-                      .catch(e =>{
+                    // }).then(response => console.log(response.data))
+                    }).then(response => {
+                        console.log(response);
+                        if (response.data !== ''){
+                            let data = JSON.parse(response.data);
+                            console.log(data);
+                            if(data.status === 'OK'){
+                                console.log(data.token);
+                                this.error = false;
+                            }else if(data.status === 'deny'){
+                                console.log(data.msg);
+                                this.msg = data.msg;
+                                this.error = true;
+                            }
+                        }
+                    }).catch(e =>{
                            console.log(e.message);
                     });
                     //console.log(user);
@@ -119,3 +140,8 @@
         }
     };
 </script>
+<style scoped lang="sass">
+    .error-p
+        color: red
+
+</style>

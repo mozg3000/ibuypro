@@ -2,7 +2,7 @@
   <v-app>
     <v-content>
       <AuthComponent/>
-      <RegistrationComponent/>
+<!--      <RegistrationComponent/>-->
     </v-content>/
   </v-app>
 </template>

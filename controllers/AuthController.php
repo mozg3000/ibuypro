@@ -21,12 +21,24 @@ class AuthController extends \yii\web\Controller
             $model->load(\Yii::$app->request->post());
 //            $model->attributes = \Yii::$app->request->post()['LoginForm'];
             $model->scenarioSignIn();
+            \Yii::$app->response->format = Response::FORMAT_JSON;
             if (\Yii::$app->auth->signIn($model)){
-                \Yii::$app->response->format = Response::FORMAT_JSON;
                 $user = \Yii::$app->auth->getUserByName($model->username);
 //                var_dump($user);
 //                return $this->redirect(['/']);
-                return JSON::encode(['token' => $user->token]);
+                return JSON::encode
+                ([
+                    'status' => 'OK',
+                    'token' => $user->token,
+                    'msg' => ''
+                ],JSON_FORCE_OBJECT);
+            }else{
+                return JSON::encode
+                ([
+                    'status' => 'deny',
+                    'token' => '',
+                    'msg' => 'Неверный пароль или имя пользователя'
+                ],JSON_FORCE_OBJECT);
             }
         }
 
