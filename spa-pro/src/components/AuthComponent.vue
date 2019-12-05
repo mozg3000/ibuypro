@@ -34,7 +34,6 @@
                                     <v-text-field
                                             label="Пользователь"
                                             name="username"
-                                            prepend-icon="person"
                                             type="text"
                                             v-model="username"
                                             :counter="50"
@@ -45,7 +44,6 @@
                                             id="password"
                                             label="Пароль"
                                             name="password"
-                                            prepend-icon="lock"
                                             type="password"
                                             v-model="password"
                                             :counter="8"
@@ -102,10 +100,7 @@
         methods:{
             signIn(){
                 if (this.$refs.form.validate()) {
-                    const  user = {
-                        'username': this.username,
-                        'password': this.password
-                    };
+
                     let bodyFormData = new FormData();
                     bodyFormData.set('Users[username]', this.username);
                     bodyFormData.set('Users[password]', this.password);
@@ -117,15 +112,16 @@
                         headers: {'Content-Type': 'multipart/form-data' }
                     // }).then(response => console.log(response.data))
                     }).then(response => {
-                        console.log(response);
+                        // console.log(response);
                         if (response.data !== ''){
+                            // let data = response.data;
                             let data = JSON.parse(response.data);
-                            console.log(data);
+                            // console.log(data.status);
                             if(data.status === 'OK'){
-                                console.log(data.token);
+                                // console.log(data.token);
                                 this.error = false;
                             }else if(data.status === 'deny'){
-                                console.log(data.msg);
+                                // console.log(data.msg);
                                 this.msg = data.msg;
                                 this.error = true;
                             }
@@ -133,7 +129,6 @@
                     }).catch(e =>{
                            console.log(e.message);
                     });
-                    //console.log(user);
                 }
             },
 

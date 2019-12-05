@@ -5,7 +5,8 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "myserve": "vue-cli-service serve --host ibuypro.inshop.online"
+    "myserve": "vue-cli-service serve --host ibuypro.inshop.online",
+    "mylocalserve": "vue-cli-service serve --host ibuypro.inshop.online"
   },
   "dependencies": {
     "axios": "^0.19.0",

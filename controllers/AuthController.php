@@ -30,7 +30,7 @@ class AuthController extends \yii\web\Controller
                 ([
                     'status' => 'OK',
                     'token' => $user->token,
-                    'msg' => ''
+                    'msg' => 'Вы удачно вошли в систему'
                 ],JSON_FORCE_OBJECT);
             }else{
                 return JSON::encode
@@ -52,12 +52,29 @@ class AuthController extends \yii\web\Controller
         if (\Yii::$app->request->isPost){
             $model->load(\Yii::$app->request->post());
             $model->scenarioSignUp();
+//            var_dump($model);
             if (\Yii::$app->auth->signUp($model)){
-              return $this->redirect(['auth/sign-in', 'id' => $model->id]);
+//              return $this->redirect(['auth/sign-in', 'id' => $model->id]);
+                return Json::encode([
+                    'status' => 'registered',
+                    'token' => '',
+                    'msg' => 'Вы удачно зарегистрировались'
+                ],JSON_FORCE_OBJECT);
+            }else{
+//                var_dump($model->errors);exit();
+                $emailError = $model->errors['email'][0] ?? '';
+                $usernameError = $model->errors['username'][0] ?? '';
+                return Json::encode([
+                    'status' => 'rejected',
+                    'error' => [
+                        'email' => $emailError,
+                        'username' => $usernameError,
+                    ]
+                ]);
             }
         }
 
-        return$this->render('sign-up', ['model' => $model]);
+//        return$this->render('sign-up', ['model' => $model]);
     }
 
 }
