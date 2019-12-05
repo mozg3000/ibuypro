@@ -46,7 +46,7 @@ class AuthComponent extends Component
     {
         return \Yii::$app->security->validatePassword($password,$passwordHash);
     }
-    private function getUserByName($name):Users
+    public function getUserByName($name):Users
     {
         return Users::find()->andWhere(['username' => $name])->one();
     }
