@@ -1,8 +1,8 @@
 <template>
   <v-app>
     <v-content>
-      <AuthComponent/>
-<!--      <RegistrationComponent/>-->
+<!--      <AuthComponent/>-->
+      <RegistrationComponent/>
     </v-content>/
   </v-app>
 </template>

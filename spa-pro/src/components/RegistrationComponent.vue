@@ -79,7 +79,7 @@
                                             :rules="passwordRule"
                                     />
                                     <v-text-field
-                                            id="password"
+                                            id="passwordConfirm"
                                             label="Ещё раз пароль"
                                             name="password-confirm"
                                             type="password"
@@ -160,7 +160,7 @@
                         data: bodyFormData,
                         headers: {'Content-Type': 'multipart/form-data' }
                     }).then(response => {
-                            let data = response.data;
+                            let data = JSON.parse(response.data);
                             if(data.status === 'registered'){
                                 this.emailError = false;
                                 this.usernameError = false;

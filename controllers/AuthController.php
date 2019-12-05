@@ -48,7 +48,7 @@ class AuthController extends \yii\web\Controller
     public function actionSignUp(){
 
         $model = new Users();
-
+        \Yii::$app->response->format = Response::FORMAT_JSON;
         if (\Yii::$app->request->isPost){
             $model->load(\Yii::$app->request->post());
             $model->scenarioSignUp();
