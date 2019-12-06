@@ -2,21 +2,25 @@
   <v-app>
     <v-content>
 <!--      <AuthComponent/>-->
-      <RegistrationComponent/>
-    </v-content>/
+<!--      <RegistrationComponent/>-->
+        <GoodsCategoryList/>
+    </v-content>
   </v-app>
+<!--    <GoodsCategoryList/>-->
 </template>
 
 <script>
 import AuthComponent from './components/AuthComponent';
 import RegistrationComponent from './components/RegistrationComponent';
+import GoodsCategoryList from './components/GoodsCategoryList';
 
 export default {
-  name: 'App',
+name: 'App',
 
   components: {
       AuthComponent,
       RegistrationComponent,
+      GoodsCategoryList,
   },
 
   data: () => ({
