@@ -2,22 +2,34 @@
   <v-app>
     <v-content>
 <!--      <AuthComponent/>-->
-      <RegistrationComponent/>
-    </v-content>/
+<!--      <RegistrationComponent/>-->
+<!--        <GoodsCategoryList/>-->
+        <MapComponent></MapComponent>
+    </v-content>
   </v-app>
+<!--    <GoodsCategoryList/>-->
+<!--    <div class="svg-container"></div>-->
 </template>
 
 <script>
 import AuthComponent from './components/AuthComponent';
 import RegistrationComponent from './components/RegistrationComponent';
+import GoodsCategoryList from './components/GoodsCategoryList';
+import SVGComponent from './components/SVGComponent';
+import MapComponent from './components/MapComponent'
 
 export default {
-  name: 'App',
+name: 'App',
 
   components: {
       AuthComponent,
       RegistrationComponent,
+      GoodsCategoryList,
+      SVGComponent,
+      MapComponent,
   },
+    mounted() {
+    },
 
   data: () => ({
     //
