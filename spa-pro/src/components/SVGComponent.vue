@@ -34,21 +34,16 @@
         }),
         methods:{
             addRectHHandler(e){
-                let dragStartPosition = { x: e.clientX, y: e.clientY};
 
-                moveRect(this.rectTemplate, 0, this.graph, this.paper, dragStartPosition, {x:0,y:0}, {x:0,y:0});
+                moveRect(this.rectTemplate, 0, this.graph, this.paper, {x:0,y:0}, {x:0,y:0});
             },
             addRectVRHandler(e) {
 
-                let dragStartPosition = {x: e.clientX, y: e.clientY};
-
-                moveRect(this.rectTemplate, 90, this.graph, this.paper, dragStartPosition, {x:-200,y:-10}, {x:90,y:100});
+                moveRect(this.rectTemplate, 90, this.graph, this.paper, {x:-198,y:-9}, {x:90,y:99});
             },
             addRectVLHandler(e) {
 
-                let dragStartPosition = {x: e.clientX, y: e.clientY};
-
-                moveRect(this.rectTemplate, -90, this.graph, this.paper, dragStartPosition, {x:-200,y:-10}, {x:90,y:100});
+                moveRect(this.rectTemplate, -90, this.graph, this.paper, {x:-198,y:-9}, {x:90,y:99});
             }
         },
         mounted() {
@@ -58,25 +53,26 @@
                 model: this.graph,
                 width: 600,
                 height: 400,
-                gridSize: 6,
+                gridSize: 2,
                 drawGrid: {
                     name: 'doubleMesh',
                     args: [
-                        { color: 'green', thickness: 1 }, // settings for the primary mesh
-                        { color: 'blue', scaleFactor: 3, thickness: 2 } //settings for the secondary mesh
+                        { color: 'green', thickness: 0.5 }, // settings for the primary mesh
+                        { color: 'blue', scaleFactor: 3, thickness: 1 } //settings for the secondary mesh
                     ]}
             });
             this.rectTemplate = makeRectTemplate();
             this.rectTemplate.addTo(this.graph);
         }
     }
-    function proceedNewElementMovement(paper, newElement, dragStartPosition, dragStartCorrection, positionCorrection) {
+    function proceedNewElementMovement(paper, newElement, dragStartCorrection, positionCorrection) {
         $("#svg-container")
             .mousemove((e)=>{
-                newElement.position(e.clientX+positionCorrection.x/*90*/, e.clientY+positionCorrection.y /*100*/);
+                let dragStartPosition = { x: e.clientX, y: e.clientY};
+                newElement.position(e.clientX+positionCorrection.x, e.clientY+positionCorrection.y);
                 newElement.translate(
-                    e.offsetX - dragStartPosition.x+dragStartCorrection.x,//200,
-                    e.offsetY - dragStartPosition.y+dragStartCorrection.y//10
+                    e.offsetX- dragStartPosition.x+dragStartCorrection.x,
+                    e.offsetY- dragStartPosition.y+dragStartCorrection.y
                 );
                 newElement.attr('./display', 'block');
                 paper.on('cell:pointerclick', (e)=>{
@@ -89,7 +85,7 @@
     function makeRectTemplate() {
 
         let rect = new joint.shapes.standard.Rectangle();
-        rect.resize(200,20);
+        rect.resize(198,18);
         rect.attr('./display', 'none');
 
         return rect;
@@ -100,6 +96,7 @@
         newVRect.attr({
             body:{
                 fill: 'blue',
+                'strokeWidth': 0.5,
             },
             label:{
                 text: 'Стеллаж',
