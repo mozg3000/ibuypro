@@ -11,6 +11,9 @@
             <button id="addRectVL" @click.prevent.stop="addRectVLHandler">
                 <div ></div>
             </button>
+            <button id="save_btn" @click.prevent.stop="saveMap">
+                <div >Save</div>
+            </button>
         </div>
 
     </div>
@@ -21,6 +24,9 @@
     window.lodash = require('../../node_modules/lodash/lodash.js');
     window._ = require('../../node_modules/backbone/backbone.js');
     window.joint = require('../../node_modules/jointjs/dist/joint.js');
+
+    import Map from '../lib/SVGMap/Map.js';
+    // import {moveRect} from '../lib/utils/elementMoveEventAssistent';
 
     export default {
         name: "SVGComponent",
@@ -35,15 +41,20 @@
         methods:{
             addRectHHandler(e){
 
-                moveRect(this.rectTemplate, 0, this.graph, this.paper, {x:0,y:0}, {x:0,y:0});
+                moveRect(this.rectTemplate, 0, this.graph, this.paper, {x:-99,y:-9}, {x:0,y:0});
             },
             addRectVRHandler(e) {
 
-                moveRect(this.rectTemplate, 90, this.graph, this.paper, {x:-198,y:-9}, {x:90,y:99});
+                moveRect(this.rectTemplate, 90, this.graph, this.paper, {x:-189,y:-99}, {x:90,y:99});
             },
             addRectVLHandler(e) {
 
-                moveRect(this.rectTemplate, -90, this.graph, this.paper, {x:-198,y:-9}, {x:90,y:99});
+                moveRect(this.rectTemplate, -90, this.graph, this.paper, {x:-189,y:-99}, {x:90,y:99});
+            },
+            saveMap(e){
+
+                let map = new Map(this.graph);
+                console.log(this.paper.options);
             }
         },
         mounted() {
@@ -90,7 +101,7 @@
 
         return rect;
     }
-    function moveRect(rectTemplate, degree, graph, paper, dragStartPosition, dragStartCorrection, positionCorrection) {
+    function moveRect(rectTemplate, degree, graph, paper, dragStartCorrection, positionCorrection) {
 
         let newVRect = rectTemplate.clone();
         newVRect.attr({
@@ -105,7 +116,7 @@
         });
         newVRect.rotate(degree);
         newVRect.addTo(graph);
-        proceedNewElementMovement(paper, newVRect, dragStartPosition, dragStartCorrection, positionCorrection);
+        proceedNewElementMovement(paper, newVRect, dragStartCorrection, positionCorrection);
     }
 </script>
 
@@ -130,6 +141,10 @@
             height: 8px
             width: 15px
             margin: 0 auto
+    #save_btn
+        background-color: greenyellow
+        border: #0d3349 solid 0.5px
+
     #addRectVR, #addRectVL
         background-color: greenyellow
         border: #0d3349 solid 0.5px
