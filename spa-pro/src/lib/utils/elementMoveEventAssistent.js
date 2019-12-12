@@ -1,3 +1,4 @@
+
 function proceedNewElementMovement(paper, newElement, dragStartCorrection, positionCorrection) {
     $("#svg-container")
         .mousemove((e)=>{
@@ -41,4 +42,4 @@ function moveRect(rectTemplate, degree, graph, paper, dragStartPosition, dragSta
     proceedNewElementMovement(paper, newVRect, dragStartPosition, dragStartCorrection, positionCorrection);
 }
 
-export {moveRect};
+export {moveRect, makeRectTemplate};
