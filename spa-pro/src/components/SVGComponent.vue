@@ -26,7 +26,8 @@
     window.joint = require('../../node_modules/jointjs/dist/joint.js');
 
     import Map from '../lib/SVGMap/Map.js';
-    import {moveRect, makeRectTemplate} from '../lib/utils/elementMoveEventAssistent';
+    import {moveRect} from '../lib/utils/elementMoveEventAssistent';
+    import mapInit from "../lib/utils/mapInit";
 
     export default {
         name: "SVGComponent",
@@ -54,26 +55,15 @@
             saveMap(e){
 
                 let map = new Map(this.graph);
-                console.log(map);
             }
         },
         mounted() {
-            this.graph = new joint.dia.Graph;
-            this.paper =  new joint.dia.Paper({
-                el: document.getElementById('svg-container'),
-                model: this.graph,
-                width: 600,
-                height: 400,
-                gridSize: 2,
-                drawGrid: {
-                    name: 'doubleMesh',
-                    args: [
-                        { color: 'green', thickness: 0.5 }, // settings for the primary mesh
-                        { color: 'blue', scaleFactor: 3, thickness: 1 } //settings for the secondary mesh
-                    ]}
-            });
-            this.rectTemplate = makeRectTemplate();
-            this.rectTemplate.addTo(this.graph);
+
+            let map = mapInit(this.graph,this.paper, this.rectTemplate);
+
+            this.graph = map.graph;
+            this.paper = map.paper;
+            this.rectTemplate = map.rectTemplate;
         }
     }
 </script>

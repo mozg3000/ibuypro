@@ -16,14 +16,6 @@ function proceedNewElementMovement(paper, newElement, dragStartCorrection, posit
             dragStartPosition = { x: e.clientX, y: e.clientY};
         });
 }
-function makeRectTemplate() {
-
-    let rect = new joint.shapes.standard.Rectangle();
-    rect.resize(198,18);
-    rect.attr('./display', 'none');
-
-    return rect;
-}
 function moveRect(rectTemplate, degree, graph, paper, dragStartPosition, dragStartCorrection, positionCorrection) {
 
     let newVRect = rectTemplate.clone();
@@ -42,4 +34,4 @@ function moveRect(rectTemplate, degree, graph, paper, dragStartPosition, dragSta
     proceedNewElementMovement(paper, newVRect, dragStartPosition, dragStartCorrection, positionCorrection);
 }
 
-export {moveRect, makeRectTemplate};
+export {moveRect};
