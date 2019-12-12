@@ -69,7 +69,7 @@
                                             :rules="emailConfirmRule"
                                     />
                                     <v-text-field
-                                            id="password"
+                                            id="password_registration"
                                             label="Пароль"
                                             name="password"
                                             type="password"
@@ -79,7 +79,7 @@
                                             :rules="passwordRule"
                                     />
                                     <v-text-field
-                                            id="passwordConfirm"
+                                            id="passwordConfirm_registration"
                                             label="Ещё раз пароль"
                                             name="password-confirm"
                                             type="password"
