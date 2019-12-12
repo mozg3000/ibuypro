@@ -41,7 +41,7 @@
                                             :rules="usernameRules"
                                     />
                                     <v-text-field
-                                            id="password"
+                                            id="password_auth"
                                             label="Пароль"
                                             name="password"
                                             type="password"

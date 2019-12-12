@@ -1,10 +1,10 @@
 <template>
   <v-app>
-    <v-content>
-<!--      <AuthComponent/>-->
-<!--      <RegistrationComponent/>-->
-<!--        <GoodsCategoryList/>-->
-        <MapComponent></MapComponent>
+      <v-content>
+            <MapComponent></MapComponent>
+            <AuthComponent/>
+            <RegistrationComponent/>
+            <GoodsCategoryList/>
     </v-content>
   </v-app>
 <!--    <GoodsCategoryList/>-->
