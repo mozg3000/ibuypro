@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../components/Home.vue'
 import Shop from '../components/Shop.vue'
+import ShopAdd from '../components/ShopAdd.vue'
 
 Vue.use(VueRouter)
 
@@ -16,7 +17,12 @@ const routes = [
     name:'shop',
     component: Shop,
     props: true
-  }
+  },
+    {
+        path: '/shop-add',
+        name:'shopAdd',
+        component: ShopAdd
+    }
 ]
 
 const router = new VueRouter({

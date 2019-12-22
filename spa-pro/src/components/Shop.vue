@@ -159,9 +159,6 @@
         },
 
         watch: {
-            '$route'() {
-                this.getPost(this.id);
-            },
             search(after, before) {
                 this.searcher();
             }

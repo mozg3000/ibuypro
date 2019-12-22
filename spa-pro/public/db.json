@@ -5,12 +5,18 @@
 		{"Id": "1", "Number": "100", "TopNumber": "10", "Row": "5"},
 		{"Id": "1", "Number": "100", "TopNumber": "10", "Row": "5"}
 ],
+    "Сhain": [
+        {"Id": "1", "Name": "auchan", "Code": "01", "Src": "auchan.jpg", "Flex": "6"},
+        {"Id": "2", "Name": "magnit", "Code": "02", "Src": "auchan.jpg", "Flex": "6"},
+        {"Id": "3", "Name": "perekrestok", "Code": "03", "Src": "auchan.jpg", "Flex": "6"},
+        {"Id": "4", "Name": "okmarket", "Code": "01", "Src": "auchan.jpg", "Flex": "6"}
+   ],
 
 	"Shops": [
-		{"Id": "1", "Name": "auchan", "Code": "01", "Src": "auchan.jpg", "Flex": "6"},
-		{"Id": "2", "Name": "magnit", "Code": "02", "Src": "auchan.jpg", "Flex": "6"},
-		{"Id": "3", "Name": "perekrestok", "Code": "03", "Src": "auchan.jpg", "Flex": "6"},
-		{"Id": "4", "Name": "okmarket", "Code": "01", "Src": "auchan.jpg", "Flex": "6"}
+		{"Id": "1", "СhainId": "1", "Сategory": "hyper", "address": "Адрес", "Code": "01", "Src": "auchan.jpg", "Flex": "6"},
+		{"Id": "2", "СhainId": "1", "Сategory": "hyper", "address": "Адрес", "Code": "02", "Src": "auchan.jpg", "Flex": "6"},
+		{"Id": "3", "СhainId": "1", "Сategory": "hyper", "address": "Адрес", "Code": "03", "Src": "auchan.jpg", "Flex": "6"},
+		{"Id": "4", "СhainId": "1", "Сategory": "hyper", "address": "Адрес", "Code": "01", "Src": "auchan.jpg", "Flex": "6"}
 	],
 
 	"Categories": [

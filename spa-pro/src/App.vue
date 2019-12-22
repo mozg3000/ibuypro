@@ -131,17 +131,19 @@
         </v-layout>
       </v-container>
     </v-content>
-    <v-btn
-            bottom
-            color="pink"
-            dark
-            fab
-            fixed
-            right
-            @click="dialog = !dialog"
-    >
-      <v-icon>add</v-icon>
-    </v-btn>
+      <a href="/shop-add">
+      <v-btn
+              bottom
+              color="pink"
+              dark
+              fab
+              fixed
+              right
+      >
+          <v-icon>add</v-icon>
+      </v-btn>
+      </a>
+
     <v-dialog
             v-model="dialog"
             width="800px"
