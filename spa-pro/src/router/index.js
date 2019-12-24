@@ -25,7 +25,7 @@ const routes = [
         component: ShopAdd
     },
     {
-        path: '/map',
+        path: '/map/draw',
         name:'map',
         component: Map
     }

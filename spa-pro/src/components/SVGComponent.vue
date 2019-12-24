@@ -11,6 +11,9 @@
             <button id="addRectVL" @click.prevent.stop="addRectVLHandler">
                 <div ></div>
             </button>
+            <button id="start_btn" @click.prevent.stop="addStartPoint">
+                <div></div>
+            </button>
             <button id="save_btn" @click.prevent.stop="saveMap">
                 <div >Save</div>
             </button>
@@ -28,6 +31,7 @@
     import Map from '../lib/SVGMap/Map.js';
     import {moveRect} from '../lib/utils/elementMoveEventAssistent';
     import mapInit from "../lib/utils/mapInit";
+    import {buildTails} from "../lib/utils/tails";
 
     export default {
         name: "SVGComponent",
@@ -40,21 +44,78 @@
           rectTemplate: '',
         }),
         methods:{
+            buildTails(){
+                let map = new Map(this.graph);
+                let tails = buildTails(map);
+                console.log(tails);
+            },
             addRectHHandler(e){
 
-                moveRect(this.rectTemplate, 0, this.graph, this.paper, {x:-99,y:-9}, {x:0,y:0});
+                let attrs = {
+                    body: {
+                        fill: 'blue'
+                    },
+                    label: {
+                        fill: '#ECF0F1',
+                        text: 'Стеллаж'
+                    }
+                };
+                moveRect(this.rectTemplate, attrs, 0, this.graph, this.paper, {x:-99,y:-9}, {x:0,y:0});
             },
             addRectVRHandler(e) {
-
-                moveRect(this.rectTemplate, 90, this.graph, this.paper, {x:-189,y:-99}, {x:90,y:99});
+                let attrs = {
+                    body: {
+                        fill: 'blue'
+                    },
+                    label: {
+                        fill: '#ECF0F1',
+                        text: 'Стеллаж'
+                    }
+                };
+                moveRect(this.rectTemplate, attrs, 90, this.graph, this.paper, {x:-189,y:-99}, {x:90,y:99});
             },
             addRectVLHandler(e) {
-
-                moveRect(this.rectTemplate, -90, this.graph, this.paper, {x:-189,y:-99}, {x:90,y:99});
+                let attrs = {
+                    body: {
+                        fill: 'blue'
+                    },
+                    label: {
+                        fill: '#ECF0F1',
+                        text: 'Стеллаж'
+                    }
+                };
+                moveRect(this.rectTemplate, attrs, -90, this.graph, this.paper, {x:-189,y:-99}, {x:90,y:99});
             },
             saveMap(e){
 
                 let map = new Map(this.graph);
+                // console.log(map);
+                this.buildTails();
+            },
+            addStartPoint(e){
+                let startPoint = this.rectTemplate.clone();
+                startPoint.resize(30, 30);
+                startPoint.attr({
+                    body: {
+                        rx: 20,
+                        ry: 20,
+                        strokeWidth: 0
+                    },
+                    label: {
+                        fontSize: 11,
+                        fontVariant: 'small-caps'
+                    }
+                });
+                let attrs = {
+                    body: {
+                        fill: '#E74C3C'
+                    },
+                    label: {
+                        fill: '#ECF0F1',
+                        text: 'Старт'
+                    }
+                };
+                moveRect(startPoint, attrs, 0, this.graph, this.paper, {x:-15,y:-15}, {x:0,y:0});
             }
         },
         mounted() {
@@ -78,13 +139,14 @@
     #svg-controls
         display: flex
         justify-content: center
+        margin-top: 15px
 
     #addRectH
         background-color: greenyellow
         border: #0d3349 solid 0.5px
         height: 30px
         width: 30px
-        &>div
+        >div
             border: #0d47a1 solid 1.5px
             height: 8px
             width: 15px
@@ -98,11 +160,21 @@
         border: #0d3349 solid 0.5px
         height: 30px
         width: 30px
-        &>div
+        >div
             border: #0d47a1 solid 1.5px
             height: 15px
             width: 8px
             margin: 0 auto
     #addRectVL
         background-color: #a8d
+    #start_btn
+        width: 30px
+        height: 30px
+        border: 1px solid black
+        >div
+            width: 10px
+            height: 10px
+            margin: 0 auto
+            border: 0.5px solid red
+            border-radius: 50%
 </style>
