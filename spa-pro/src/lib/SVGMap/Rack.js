@@ -6,6 +6,6 @@ export default class Rack {
             this.height = (rack.size()).height;
             this.label = rack.attr('label/text');
             this.fill = rack.attr('body/fill');
-
+            this.angle = rack.angle();
     }
 }

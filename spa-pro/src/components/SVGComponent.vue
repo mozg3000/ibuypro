@@ -89,7 +89,7 @@
             saveMap(e){
 
                 let map = new Map(this.graph);
-                // console.log(map);
+                //console.log(map);
                 this.buildTails();
             },
             addStartPoint(e){
