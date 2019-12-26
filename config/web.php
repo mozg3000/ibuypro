@@ -2,6 +2,7 @@
 
 use app\components\AuthComponent;
 use yii\rbac\DbManager;
+use yii\web\JsonParser;
 
 $params = require __DIR__ . '/params.php';
 $db = file_exists(__DIR__ . '/db_local.php')?
@@ -25,6 +26,9 @@ $config = [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => '_n6lQGZDNHlJgmT4zrXP0znB4iuVaUYL',
+            'parsers' => [
+                'application/json' => JsonParser::class
+            ]
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
@@ -57,7 +61,7 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                'api' => 'auth/sign-in'
+                'chain/<id:\d+>/shop' => 'chain/shop',
             ],
         ],
     ],

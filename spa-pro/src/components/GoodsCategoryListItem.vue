@@ -25,8 +25,6 @@
                 </div>
             </v-card>
         </div>
-<!--        <p>{{category.title}}</p>-->
-
 </template>
 
 <script>
