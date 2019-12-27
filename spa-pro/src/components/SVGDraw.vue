@@ -90,16 +90,16 @@
             async saveMap(e){
 
                 let map = new Map(this.graph);
-                console.log(map);
+                console.log(JSON.stringify(map.racks));
                 // let res = await axios.post('/racks', map.racks);
-                res = await axios({
+                let res = await axios({
                     method: 'post',
                     url: '/racks',
                     data:  map.racks,
                     headers: {'Content-Type': 'application/json' }
                     // }).then(response => console.log(response.data))
                 });
-                console.log(res);
+                console.log(res.data);
                 // this.buildTails();
             },
             addStartPoint(e){

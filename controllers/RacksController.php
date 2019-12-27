@@ -20,7 +20,10 @@ class RacksController extends Controller
     {
         if (\Yii::$app->request->isPost){
 
-            return var_dump(\Yii::$app->request->post());
+//            return '[{"position":{"x":96,"y":192},"width":198,"height":18,"label":"Стеллаж","fill":"blue","angle":0},{"position":{"x":108,"y":270},"width":198,"height":18,"label":"Стеллаж","fill":"blue","angle":0},{"position":{"x":108,"y":318},"width":198,"height":18,"label":"Стеллаж","fill":"blue","angle":0}]';
+            return \Yii::$app->request->post();
         }
+
+        return "{Status: OK}";
     }
 }
