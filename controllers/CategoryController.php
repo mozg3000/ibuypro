@@ -9,10 +9,7 @@ use yii\rest\Controller;
 
 class CategoryController extends Controller
 {
-    public $enableCsrfValidation = false;
-
     public function init()
-
     {
         parent::init();
         \Yii::$app->user->enableSession = false;

@@ -4,6 +4,7 @@ import Home from '../components/Home.vue'
 import Shop from '../components/Shop.vue'
 import ShopAdd from '../components/ShopAdd.vue'
 import Map from "../views/Map";
+import AuthComponent from "../components/AuthComponent";
 
 Vue.use(VueRouter);
 
@@ -28,6 +29,11 @@ const routes = [
         path: '/map/draw',
         name:'map',
         component: Map
+    },
+    {
+        path: '/sig-in',
+        name:'map',
+        component: AuthComponent
     }
 ]
 

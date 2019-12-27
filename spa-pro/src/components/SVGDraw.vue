@@ -27,6 +27,8 @@
     window._ = require('../../node_modules/backbone/backbone.js');
     window.joint = require('../../node_modules/jointjs/dist/joint.js');
 
+    import axios from 'axios';
+
     import Map from '../lib/SVGMap/Map.js';
     import {moveRect} from '../lib/utils/elementMoveEventAssistent';
     import mapInit from "../lib/utils/mapInit";
@@ -85,11 +87,20 @@
                 };
                 moveRect(this.rectTemplate, attrs, -90, this.graph, this.paper, {x:-189,y:-99}, {x:90,y:99});
             },
-            saveMap(e){
+            async saveMap(e){
 
                 let map = new Map(this.graph);
-                //console.log(map);
-                this.buildTails();
+                console.log(map);
+                // let res = await axios.post('/racks', map.racks);
+                res = await axios({
+                    method: 'post',
+                    url: '/racks',
+                    data:  map.racks,
+                    headers: {'Content-Type': 'application/json' }
+                    // }).then(response => console.log(response.data))
+                });
+                console.log(res);
+                // this.buildTails();
             },
             addStartPoint(e){
                 let startPoint = this.rectTemplate.clone();

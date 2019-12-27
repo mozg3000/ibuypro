@@ -8,8 +8,6 @@ use yii\rest\Controller;
 
 class MapController extends Controller
 {
-    public $enableCsrfValidation = false;
-
     public function init()
 
     {

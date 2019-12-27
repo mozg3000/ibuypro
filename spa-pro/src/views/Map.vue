@@ -5,7 +5,7 @@
 </template>
 
 <script>
-    import SVGComponent from "../components/SVGComponent";
+    import SVGComponent from "../components/SVGDraw";
     export default {
         name: "Map",
         components: {
