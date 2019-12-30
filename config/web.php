@@ -1,5 +1,8 @@
 <?php
 
+use app\components\AuthComponent;
+use yii\rbac\DbManager;
+
 $params = require __DIR__ . '/params.php';
 $db = file_exists(__DIR__ . '/db_local.php')?
     (require __DIR__ . '/db_local.php')
@@ -15,6 +18,10 @@ $config = [
     ],
     'defaultRoute' => 'index/vue',
     'components' => [
+        'authManager' => [
+            'class' => DbManager::class
+        ],
+        'auth' => ['class' => app\components\AuthComponent::class],
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => '_n6lQGZDNHlJgmT4zrXP0znB4iuVaUYL',
@@ -23,7 +30,7 @@ $config = [
             'class' => 'yii\caching\FileCache',
         ],
         'user' => [
-            'identityClass' => 'app\models\User',
+            'identityClass' => 'app\models\Users',
             'enableAutoLogin' => true,
         ],
         'errorHandler' => [
@@ -50,6 +57,7 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                'api' => 'auth/sign-in'
             ],
         ],
     ],

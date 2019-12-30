@@ -1,8 +1,15 @@
 module.exports = {
   "devServer": {
     "proxy": {
-      "^/api": {
-        "target": "http://ibuypro.inshop.online"
+      "/auth/sign-in": {
+        "target": "http://ibuypro.inshop.online",
+          ws: true,
+          changeOrigin: true
+      },
+      "/auth/sign-up": {
+        "target": "http://ibuypro.inshop.online",
+          ws: true,
+          changeOrigin: true
       }
     }
   },
