@@ -10,10 +10,30 @@ module.exports = {
         "target": "http://ibuypro.inshop.online",
           ws: true,
           changeOrigin: true
+      },
+      "/chain/*/shop": {
+        "target": "http://ibuypro.inshop.online",
+          ws: true,
+          changeOrigin: true
+      },
+      "/chain/*": {
+        "target": "http://ibuypro.inshop.online",
+          ws: true,
+          changeOrigin: true
+      },
+      "/category": {
+        "target": "http://ibuypro.inshop.online",
+          ws: true,
+          changeOrigin: true
+      },
+      "/racks*": {
+        "target": "http://ibuypro.inshop.online/racks",
+          ws: true,
+          changeOrigin: true
       }
     }
   },
   "transpileDependencies": [
     "vuetify"
   ]
-}
+};

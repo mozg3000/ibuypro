@@ -1,18 +1,18 @@
 <template>
     <div>
-        <SVGComponent >
+        <SVGDraw>
 
-        </SVGComponent>
+        </SVGDraw>
     </div>
 </template>
 
 <script>
-    import SVGComponent from "./SVGComponent";
+    import SVGDraw from "./SVGDraw";
 
     export default {
         name: "MapComponent",
         components: {
-            SVGComponent,
+            SVGDraw,
         },
         methods:{
 

@@ -18,7 +18,6 @@
                 <div >Save</div>
             </button>
         </div>
-
     </div>
 </template>
 
@@ -27,6 +26,8 @@
     window.lodash = require('../../node_modules/lodash/lodash.js');
     window._ = require('../../node_modules/backbone/backbone.js');
     window.joint = require('../../node_modules/jointjs/dist/joint.js');
+
+    import axios from 'axios';
 
     import Map from '../lib/SVGMap/Map.js';
     import {moveRect} from '../lib/utils/elementMoveEventAssistent';
@@ -86,11 +87,20 @@
                 };
                 moveRect(this.rectTemplate, attrs, -90, this.graph, this.paper, {x:-189,y:-99}, {x:90,y:99});
             },
-            saveMap(e){
+            async saveMap(e){
 
                 let map = new Map(this.graph);
-                //console.log(map);
-                this.buildTails();
+                console.log(JSON.stringify(map.racks));
+                // let res = await axios.post('/racks', map.racks);
+                let res = await axios({
+                    method: 'post',
+                    url: '/racks',
+                    data:  map.racks,
+                    headers: {'Content-Type': 'application/json' }
+                    // }).then(response => console.log(response.data))
+                });
+                console.log(res.data);
+                // this.buildTails();
             },
             addStartPoint(e){
                 let startPoint = this.rectTemplate.clone();
