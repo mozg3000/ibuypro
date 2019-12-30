@@ -24,8 +24,6 @@ class MapController extends Controller
         if(\Yii::$app->request->isDelete){
             return '{"name": "Delete"}';
         }
-
-
         return true;
     }
 }

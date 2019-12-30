@@ -61,7 +61,11 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                'chain/<id:\d+>/shop' => 'chain/shop',
+                'shops/<id:\d+>' => 'shops/index',
+                'shop/<id:\d+>' => 'shop/index',
+                'categories/<id:\d+>' => 'categories/index',
+                'category/<id:\d+>' => 'category/index',
+                'racks/<id:\d+>' => 'racks/index'
             ],
         ],
     ],

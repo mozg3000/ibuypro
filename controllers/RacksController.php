@@ -8,6 +8,127 @@ use yii\rest\Controller;
 
 class RacksController extends Controller
 {
+    public $racks = [
+        '1'=>[
+            'Racks'=>[
+                [   "position"=>["x"=>42,"y"=>44],
+                    "width"=>198,
+                    "height"=>18,
+                    "label"=>"Стеллаж",
+                    "fill"=>"blue",
+                    "angle"=>0
+                ],
+                ["position"=>["x"=>42,"y"=>78],
+                    "width"=>198,
+                    "height"=>18,
+                    "label"=>"Стеллаж",
+                    "fill"=>"blue",
+                    "angle"=>0],
+                ["position"=>["x"=>42,"y"=>114],
+                    "width"=>198,
+                    "height"=>18,
+                    "label"=>"Стеллаж",
+                    "fill"=>"blue",
+                    "angle"=>0],
+                ["position"=>["x"=>42,"y"=>150],
+                    "width"=>198,
+                    "height"=>18,
+                    "label"=>"Стеллаж",
+                    "fill"=>"blue",
+                    "angle"=>0],
+                ["position"=>["x"=>42,"y"=>186],
+                    "width"=>198,
+                    "height"=>18,
+                    "label"=>"Стеллаж",
+                    "fill"=>"blue",
+                    "angle"=>0],
+                ["position"=>["x"=>42,"y"=>222],
+                    "width"=>198,
+                    "height"=>18,
+                    "label"=>"Стеллаж",
+                    "fill"=>"blue",
+                    "angle"=>0],
+                ["position"=>["x"=>42,"y"=>258],
+                    "width"=>198,
+                    "height"=>18,
+                    "label"=>"Стеллаж",
+                    "fill"=>"blue",
+                    "angle"=>0],
+                ["position"=>["x"=>42,"y"=>294],
+                    "width"=>198,
+                    "height"=>18,
+                    "label"=>"Стеллаж",
+                    "fill"=>"blue",
+                    "angle"=>0],
+                ["position"=>["x"=>42,"y"=>330],
+                    "width"=>198,
+                    "height"=>18,
+                    "label"=>"Стеллаж",
+                    "fill"=>"blue",
+                    "angle"=>0],
+                ["position"=>["x"=>264,"y"=>42],
+                    "width"=>198,
+                    "height"=>18,
+                    "label"=>"Стеллаж",
+                    "fill"=>"blue",
+                    "angle"=>0],
+                ["position"=>["x"=>264,"y"=>78],
+                    "width"=>198,
+                    "height"=>18,
+                    "label"=>"Стеллаж",
+                    "fill"=>"blue",
+                    "angle"=>0],
+                ["position"=>["x"=>264,"y"=>114],
+                    "width"=>198,
+                    "height"=>18,
+                    "label"=>"Стеллаж",
+                    "fill"=>"blue",
+                    "angle"=>0],
+                ["position"=>["x"=>264,"y"=>150],
+                    "width"=>198,
+                    "height"=>18,
+                    "label"=>"Стеллаж",
+                    "fill"=>"blue",
+                    "angle"=>0],
+                ["position"=>["x"=>264,"y"=>186],
+                    "width"=>198,
+                    "height"=>18,
+                    "label"=>"Стеллаж",
+                    "fill"=>"blue",
+                    "angle"=>0],
+                ["position"=>["x"=>264,"y"=>222],
+                    "width"=>198,
+                    "height"=>18,
+                    "label"=>"Стеллаж",
+                    "fill"=>"blue",
+                    "angle"=>0],
+                ["position"=>["x"=>264,"y"=>258],
+                    "width"=>198,
+                    "height"=>18,
+                    "label"=>"Стеллаж",
+                    "fill"=>"blue",
+                    "angle"=>0],
+                ["position"=>["x"=>264,"y"=>294],
+                    "width"=>198,
+                    "height"=>18,
+                    "label"=>"Стеллаж",
+                    "fill"=>"blue",
+                    "angle"=>0],
+                ["position"=>["x"=>264,"y"=>330],
+                    "width"=>198,
+                    "height"=>18,
+                    "label"=>"Стеллаж",
+                    "fill"=>"blue",
+                    "angle"=>0],
+                ["position"=>["x"=>234,"y"=>360],
+                    "width"=>30,
+                    "height"=>30,
+                    "label"=>"Старт",
+                    "fill"=>"#E74C3C",
+                    "angle"=>0]
+            ]
+        ]
+    ];
 
     public function init()
     {
@@ -16,14 +137,15 @@ class RacksController extends Controller
         \Yii::$app->user->enableAutoLogin = false;
     }
 
-    public function actionIndex()
+    public function actionIndex(string $id)
     {
         if (\Yii::$app->request->isPost){
 
-//            return '[{"position":{"x":96,"y":192},"width":198,"height":18,"label":"Стеллаж","fill":"blue","angle":0},{"position":{"x":108,"y":270},"width":198,"height":18,"label":"Стеллаж","fill":"blue","angle":0},{"position":{"x":108,"y":318},"width":198,"height":18,"label":"Стеллаж","fill":"blue","angle":0}]';
-            return \Yii::$app->request->post();
+            return $this->racks[$id];
+//            return "{Status: OK}";
         }
 
-        return "{Status: OK}";
+
+        return "{Status: BAD}";
     }
 }
