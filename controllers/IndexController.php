@@ -8,6 +8,8 @@ use yii\web\Controller;
 
 class IndexController extends Controller
 {
+    public $enableCsrfValidation = false;
+
     public function actionVue()
     {
         // set the specific layout for pages that will render vue

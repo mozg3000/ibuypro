@@ -76,7 +76,6 @@
         </template>
       </v-list>
     </v-navigation-drawer>
-
     <v-app-bar
             :clipped-left="$vuetify.breakpoint.lgAndUp"
             app
@@ -330,8 +329,11 @@
 </template>
 
 <script>
+    import NavigationSideMenu from "./components/NavigationSideMenu"
   export default {
-
+    components:{
+        NavigationSideMenu
+    },
     data: () => ({
         dialog: false,
         dialogAuthorization: false,
