@@ -27,12 +27,12 @@ const routes = [
     },
     {
         path: '/map/draw',
-        name:'map',
+        name:'mapdraw',
         component: Map
     },
     {
-        path: '/sig-in',
-        name:'map',
+        path: '/sign-in',
+        name:'signin',
         component: AuthComponent
     }
 ]

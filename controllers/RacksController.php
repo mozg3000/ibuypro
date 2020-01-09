@@ -141,11 +141,11 @@ class RacksController extends Controller
     {
         if (\Yii::$app->request->isPost){
 
-            return $this->racks[$id];
-//            return "{Status: OK}";
+//            return $this->racks[$id];
+            return "{Status: OK}";
         }
 
 
-        return "{Status: BAD}";
+        return $this->racks[$id];
     }
 }
