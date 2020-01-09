@@ -11,23 +11,33 @@ module.exports = {
           ws: true,
           changeOrigin: true
       },
-      "/chain/*/shop": {
+      "/shops/*": {
         "target": "http://ibuypro.inshop.online",
           ws: true,
           changeOrigin: true
       },
-      "/chain/*": {
+      "/shop/*": {
         "target": "http://ibuypro.inshop.online",
           ws: true,
           changeOrigin: true
       },
-      "/category": {
+      "/chain": {
         "target": "http://ibuypro.inshop.online",
           ws: true,
           changeOrigin: true
       },
-      "/racks*": {
-        "target": "http://ibuypro.inshop.online/racks",
+      "/category/*": {
+        "target": "http://ibuypro.inshop.online",
+          ws: true,
+          changeOrigin: true
+      },
+      "/racks/*": {
+        "target": "http://ibuypro.inshop.online",
+          ws: true,
+          changeOrigin: true
+      },
+      "/categories/*": {
+        "target": "http://ibuypro.inshop.online",
           ws: true,
           changeOrigin: true
       }
