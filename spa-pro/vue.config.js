@@ -11,12 +11,12 @@ module.exports = {
           ws: true,
           changeOrigin: true
       },
-      "/shops/*": {
+      "/shops/:id": {
         "target": "http://ibuypro.inshop.online",
           ws: true,
           changeOrigin: true
       },
-      "/shop/*": {
+      "/shop/:id": {
         "target": "http://ibuypro.inshop.online",
           ws: true,
           changeOrigin: true
@@ -26,17 +26,17 @@ module.exports = {
           ws: true,
           changeOrigin: true
       },
-      "/category/*": {
+      "/category/:id": {
         "target": "http://ibuypro.inshop.online",
           ws: true,
           changeOrigin: true
       },
-      "/racks/*": {
+      "/racks/:id": {
         "target": "http://ibuypro.inshop.online",
           ws: true,
           changeOrigin: true
       },
-      "/categories/*": {
+      "/categories/:id": {
         "target": "http://ibuypro.inshop.online",
           ws: true,
           changeOrigin: true
