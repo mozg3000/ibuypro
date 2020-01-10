@@ -101,6 +101,7 @@
                 });
                 console.group('ответ от сервера после сохранения');
                 console.log(res.data);
+                console.groupEnd()
                 // this.buildTails();
             },
             addStartPoint(e){
@@ -131,11 +132,11 @@
         },
         mounted() {
 
-            let map = mapInit(this.graph,this.paper, this.rectTemplate);
+            let {graph, paper, rectTemplate} = mapInit(this.graph,this.paper, this.rectTemplate);
 
-            this.graph = map.graph;
-            this.paper = map.paper;
-            this.rectTemplate = map.rectTemplate;
+            this.graph = graph;
+            this.paper = paper;
+            this.rectTemplate = rectTemplate;
         }
     }
 </script>
