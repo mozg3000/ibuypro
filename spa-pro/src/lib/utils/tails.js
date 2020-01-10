@@ -1,6 +1,6 @@
 function buildTails(map) {
     let occupied = findOccupied(map);
-    console.log(occupied);
+    // console.log(occupied);
     let tails = [];
     for(let i=0;i<600;i+=6){
         for (let j=0;j<400;j+=6){

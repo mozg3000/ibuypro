@@ -142,7 +142,8 @@ class RacksController extends Controller
         if (\Yii::$app->request->isPost){
 
 //            return $this->racks[$id];
-            return "{Status: OK}";
+//            return "{Status: OK}";
+            return \Yii::$app->request->post();
         }
 
 
