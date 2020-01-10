@@ -87,21 +87,20 @@
                 };
                 moveRect(this.rectTemplate, attrs, -90, this.graph, this.paper, {x:-189,y:-99}, {x:90,y:99});
             },
-            saveMap(e){
+            async saveMap(e){
 
                 let map = new Map(this.graph);
                 // console.log(JSON.stringify(map.racks));
                 // let res = await axios.post('/racks', map.racks);
-                axios({
+                let res = await axios({
                     method: 'post',
                     url: '/racks/1',
                     data:  map.racks,
                     headers: {'Content-Type': 'application/json' }
                     // }).then(response => console.log(response.data))
-                }).then(res=>{
-                    console.log(res.data);
                 });
-
+                console.group('ответ от сервера после сохранения');
+                console.log(res.data);
                 // this.buildTails();
             },
             addStartPoint(e){
