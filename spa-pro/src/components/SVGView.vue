@@ -17,23 +17,18 @@
             drawMap(){
 
             },
-            async  getData(){
-                return axios({
-                    method: 'get',
-                    url: '/racks/1',
-                    headers: {'Content-Type': 'application/json'}
-                });
-                // this.racks = res.data.Racks;
-                // console.group('getData')
-                // console.log(res.data.Racks);
-                // console.groupEnd('getData')
-
-            }
+            // async  getData(){
+            //     return axios({
+            //         method: 'get',
+            //         url: '/racks/1',
+            //         headers: {'Content-Type': 'application/json'}
+            //     });
+            // }
         },
         async mounted() {
             console.group('mounted');
 
-            let res = await this.getData();
+            let res = await getData();
             this.racks = res.data.Racks;
             console.group('Полученные данные');
             console.log(this.racks);
@@ -60,6 +55,14 @@
             });
             console.groupEnd('mounted');
         }
+    }
+
+    function getData(){
+        return axios({
+            method: 'get',
+            url: '/racks/1',
+            headers: {'Content-Type': 'application/json'}
+        });
     }
 </script>
 
