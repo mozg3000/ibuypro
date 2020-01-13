@@ -9,6 +9,7 @@
     "mylocalserve": "vue-cli-service serve --host ibuypro.inshop.online"
   },
   "dependencies": {
+    "@svgdotjs/svg.js": "^3.0.16",
     "axios": "^0.19.0",
     "core-js": "^3.3.2",
     "jointjs": "^3.1.1",

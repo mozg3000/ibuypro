@@ -29,9 +29,9 @@
 
     import axios from 'axios';
 
-    import Map from '../lib/SVGMap/Map.js';
-    import {moveRect} from '../lib/utils/elementMoveEventAssistent';
-    import mapInit from "../lib/utils/mapInit";
+    import Map from '../lib/MapObject/Map.js';
+    import {moveRect} from '../lib/utils/draw-svg/elementMoveEventAssistent';
+    import mapInit from "../lib/utils/draw-svg/mapInit";
     import {buildTails} from "../lib/utils/tails";
 
     export default {
@@ -87,21 +87,21 @@
                 };
                 moveRect(this.rectTemplate, attrs, -90, this.graph, this.paper, {x:-189,y:-99}, {x:90,y:99});
             },
-            saveMap(e){
+            async saveMap(e){
 
                 let map = new Map(this.graph);
                 // console.log(JSON.stringify(map.racks));
                 // let res = await axios.post('/racks', map.racks);
-                axios({
+                let res = await axios({
                     method: 'post',
                     url: '/racks/1',
                     data:  map.racks,
                     headers: {'Content-Type': 'application/json' }
                     // }).then(response => console.log(response.data))
-                }).then(res=>{
-                    console.log(res.data);
                 });
-
+                console.group('ответ от сервера после сохранения');
+                console.log(res.data);
+                console.groupEnd()
                 // this.buildTails();
             },
             addStartPoint(e){
@@ -132,11 +132,11 @@
         },
         mounted() {
 
-            let map = mapInit(this.graph,this.paper, this.rectTemplate);
+            let {graph, paper, rectTemplate} = mapInit(this.graph,this.paper, this.rectTemplate);
 
-            this.graph = map.graph;
-            this.paper = map.paper;
-            this.rectTemplate = map.rectTemplate;
+            this.graph = graph;
+            this.paper = paper;
+            this.rectTemplate = rectTemplate;
         }
     }
 </script>

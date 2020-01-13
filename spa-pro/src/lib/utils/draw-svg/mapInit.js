@@ -1,4 +1,4 @@
-import {makeRectTemplate} from '../../lib/utils/makeElementTemplate';
+import {makeRectTemplate} from './makeElementTemplate';
 
 export default function(graph, paper, rectTemplate){
     graph = new joint.dia.Graph;

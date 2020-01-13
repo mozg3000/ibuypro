@@ -40,6 +40,11 @@ module.exports = {
         "target": "http://ibuypro.inshop.online",
           ws: true,
           changeOrigin: true
+      },
+      "/racks*": {
+        "target": "http://ibuypro.inshop.online",
+          ws: true,
+          changeOrigin: true
       }
     }
   },
