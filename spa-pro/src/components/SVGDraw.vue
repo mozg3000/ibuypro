@@ -29,9 +29,9 @@
 
     import axios from 'axios';
 
-    import Map from '../lib/SVGMap/Map.js';
-    import {moveRect} from '../lib/utils/elementMoveEventAssistent';
-    import mapInit from "../lib/utils/mapInit";
+    import Map from '../lib/MapObject/Map.js';
+    import {moveRect} from '../lib/utils/draw-svg/elementMoveEventAssistent';
+    import mapInit from "../lib/utils/draw-svg/mapInit";
     import {buildTails} from "../lib/utils/tails";
 
     export default {
