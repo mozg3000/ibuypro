@@ -1,21 +1,33 @@
 <template>
-  <div class="cv-container">
+  <div>
+    <div class="cv-container">
 
+    </div>
+    <button id="find_btn" @click.prevent="findPath">
+      Найти путь
+    </button>
   </div>
 </template>
 
 <script>
     import { SVG } from '@svgdotjs/svg.js';
-    import {getData} from '../lib/utils/rest-api/api-request';
+    import {getData, postData} from '../lib/utils/rest-api/api-request';
     import {buildMap} from "../lib/utils/build-svg/build-map";
+    import {buildTails} from "../lib/utils/tails";
+
+    let body = ["Макароны","Шашлык","Вода"];
 
     export default {
         name: "SVGView",
         data: ()=>({
             draw: '',
-            racks: 'hfghgfh'
+            racks: ''
         }),
         methods: {
+            async findPath(){
+                let res = await postData('/find-path/1', body);
+                console.log(res.data);
+            }
         },
         async mounted() {
             console.group('mounted');
@@ -31,10 +43,16 @@
             buildMap(this.racks, this.draw);
 
             console.groupEnd('mounted');
+
+            console.log(JSON.stringify(body));
         }
     }
 </script>
 
-<style scoped>
-
+<style scoped lang="sass">
+#find_btn
+  width: 100%
+  height: 22px
+  background-color: forestgreen
+  border: 1px solid black
 </style>

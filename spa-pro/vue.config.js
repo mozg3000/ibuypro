@@ -45,6 +45,11 @@ module.exports = {
         "target": "http://ibuypro.inshop.online",
           ws: true,
           changeOrigin: true
+      },
+      "/find-path*": {
+        "target": "http://ibuypro.inshop.online",
+          ws: true,
+          changeOrigin: true
       }
     }
   },

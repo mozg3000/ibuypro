@@ -65,7 +65,8 @@ $config = [
                 'shop/<id:\d+>' => 'shop/index',
                 'categories/<id:\d+>' => 'categories/index',
                 'category/<id:\d+>' => 'category/index',
-                'racks/<id:\d+>' => 'racks/index'
+                'racks/<id:\d+>' => 'racks/index',
+                'find-path/<id:\d+>' => 'find-path/index'
             ],
         ],
     ],
