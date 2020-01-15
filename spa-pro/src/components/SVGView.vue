@@ -15,6 +15,7 @@
     import {buildMap} from "../lib/utils/build-svg/build-map";
     import {buildTails} from "../lib/utils/tails";
 
+    // let body = {"Categories": ["Макароны"]};
     let body = ["Макароны","Шашлык","Вода"];
 
     export default {
@@ -25,14 +26,16 @@
         }),
         methods: {
             async findPath(){
-                let res = await postData('/find-path/1', body);
+                let res = await postData('/find-path/3', body);
+                console.group('Нахождение пути');
                 console.log(res.data);
+                console.groupEnd('Нахождение пути');
             }
         },
         async mounted() {
             console.group('mounted');
 
-            let res = await getData('/racks/1');
+            let res = await getData('/racks/3');
             this.racks = res.data.Racks;
 
             console.group('Полученные данные');
@@ -41,10 +44,11 @@
 
             this.draw = SVG().addTo('.cv-container').size(600, 400);
             buildMap(this.racks, this.draw);
+            // buildMap(this.racks.filter(x => x.label != ''), this.draw);
 
             console.groupEnd('mounted');
 
-            console.log(JSON.stringify(body));
+            // console.log(JSON.stringify(body));
         }
     }
 </script>

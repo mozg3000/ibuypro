@@ -36,6 +36,11 @@ module.exports = {
           ws: true,
           changeOrigin: true
       },
+      "/find-path/:id": {
+        "target": "http://ibuypro.inshop.online",
+          ws: true,
+          changeOrigin: true
+      },
       "/categories/:id": {
         "target": "http://ibuypro.inshop.online",
           ws: true,
