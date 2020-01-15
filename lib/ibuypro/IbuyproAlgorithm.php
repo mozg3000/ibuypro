@@ -37,17 +37,36 @@ class IbuyproAlgorithm
         $lastTop = 0;
         $restPathTops = $this->pathTops;
         $path = [];
+//        $went = [];
+//        $subPath = $this->graph->findPathToClosestTop($curTop, $restPathTops);
+//        $curTop = end($subPath);
+//        array_pop($subPath);
+//        array_shift($subPath);
+//        $path[$curTop] = $subPath;
 
         while (count($restPathTops) > 0){
 
             $subPath = $this->graph->findPathToClosestTop($curTop, $restPathTops);
-            $key = array_search($curTop, $restPathTops);
-            $restPathTops = array_splice($restPathTops, $key+1, 1);
+
             $curTop = end($subPath);
             array_pop($subPath);
             array_shift($subPath);
             $path[$curTop] = $subPath;
+
+            $key = array_search($curTop, $restPathTops);
+//            var_dump('$KEY ibuyproalgoriphm findPath()', $key);
+//            var_dump('$curTop ibuyproalgoriphm findPath()', $curTop);
+
+//            if($curTop != $this->startTopNumber){
+//                $restPathTops = array_splice($restPathTops, $key+1, 1);
+//            }
+            unset($restPathTops[$key]);
+            $restPathTops = array_values($restPathTops);
+
+//            var_dump('$restPathTops ibuyproalgoriphm findPath()', $restPathTops);
+//            var_dump('$subPath ibuyproalgoriphm findPath()', $subPath);
         }
+//        var_dump('ibuyproalgoriphm findPath()', $path);
         return $path;
     }
 }

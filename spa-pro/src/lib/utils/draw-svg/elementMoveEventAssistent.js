@@ -41,8 +41,14 @@ function moveRect(rectTemplate, attrs, degree, graph, paper, dragStartPosition, 
             fill: attrs.label.fill
         }
     });
+    newVRect.attr('./top', Math.floor(Math.random() * 10000));
     newVRect.rotate(degree);
+    // Add remove button to the link.
+    let tools = new joint.dia.ToolsView({
+        tools: [new joint.linkTools.Remove()]
+    });
     newVRect.addTo(graph);
+    newVRect.findView(paper).addTools(tools);
     proceedNewElementMovement(paper, newVRect, dragStartPosition, dragStartCorrection, positionCorrection);
 }
 

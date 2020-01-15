@@ -7,5 +7,6 @@ export default class Rack {
             this.label = rack.attr('label/text');
             this.fill = rack.attr('body/fill');
             this.angle = rack.angle();
+            this.top = rack.attr('./top');
     }
 }

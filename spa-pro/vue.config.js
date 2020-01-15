@@ -11,23 +11,48 @@ module.exports = {
           ws: true,
           changeOrigin: true
       },
-      "/chain/*/shop": {
+      "/shops/:id": {
         "target": "http://ibuypro.inshop.online",
           ws: true,
           changeOrigin: true
       },
-      "/chain/*": {
+      "/shop/:id": {
         "target": "http://ibuypro.inshop.online",
           ws: true,
           changeOrigin: true
       },
-      "/category": {
+      "/chain": {
+        "target": "http://ibuypro.inshop.online",
+          ws: true,
+          changeOrigin: true
+      },
+      "/category/:id": {
+        "target": "http://ibuypro.inshop.online",
+          ws: true,
+          changeOrigin: true
+      },
+      "/racks/:id": {
+        "target": "http://ibuypro.inshop.online",
+          ws: true,
+          changeOrigin: true
+      },
+      "/find-path/:id": {
+        "target": "http://ibuypro.inshop.online",
+          ws: true,
+          changeOrigin: true
+      },
+      "/categories/:id": {
         "target": "http://ibuypro.inshop.online",
           ws: true,
           changeOrigin: true
       },
       "/racks*": {
-        "target": "http://ibuypro.inshop.online/racks",
+        "target": "http://ibuypro.inshop.online",
+          ws: true,
+          changeOrigin: true
+      },
+      "/find-path*": {
+        "target": "http://ibuypro.inshop.online",
           ws: true,
           changeOrigin: true
       }

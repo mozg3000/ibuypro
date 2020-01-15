@@ -4,6 +4,7 @@ import Home from '../components/Home.vue'
 import Shop from '../components/Shop.vue'
 import ShopAdd from '../components/ShopAdd.vue'
 import Map from "../views/Map";
+import MapView from "../views/MapView";
 import AuthComponent from "../components/AuthComponent";
 
 Vue.use(VueRouter);
@@ -27,12 +28,17 @@ const routes = [
     },
     {
         path: '/map/draw',
-        name:'map',
+        name:'mapdraw',
         component: Map
     },
     {
-        path: '/sig-in',
-        name:'map',
+        path: '/map/view',
+        name:'mapview',
+        component: MapView
+    },
+    {
+        path: '/sign-in',
+        name:'signin',
         component: AuthComponent
     }
 ]
