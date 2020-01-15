@@ -7,4 +7,12 @@ function getData(url){
         headers: {'Content-Type': 'application/json'}
     });
 }
-export {getData};
+function postData(url, body) {
+    return axios({
+        method: 'post',
+        url: url,
+        data: body,
+        headers: {'Content-Type': 'application/json'}
+    });
+}
+export {getData, postData};

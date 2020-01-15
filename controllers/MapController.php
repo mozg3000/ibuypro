@@ -19,7 +19,8 @@ class MapController extends Controller
     public function actionIndex()
     {
         if(\Yii::$app->request->isPost){
-            return '{"name": "Post"}';
+            print_r(\Yii::$app->request->post());
+//            return \Yii::$app->request->post();
         }
         if(\Yii::$app->request->isDelete){
             return '{"name": "Delete"}';
