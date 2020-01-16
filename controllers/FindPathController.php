@@ -1297,10 +1297,13 @@ class FindPathController extends Controller
         if (\Yii::$app->request->isPost) {
 
 //            var_dump($data[$id]['Categories']);
+            $categories = \Yii::$app->request->post()['Categories'];
 
-            $finder = new FindPath($data[$id]['Categories'], $data[$id]['Links'], $data[$id]['Racks']);
+            $finder = new FindPath($categories, $data[$id]['Links'], $data[$id]['Racks']);
 
-            return $finder->findPath();
+            $path = $finder->findPath();
+
+            return $path;
 
         }
     }
