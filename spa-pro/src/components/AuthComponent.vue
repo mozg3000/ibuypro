@@ -138,5 +138,4 @@
 <style scoped lang="sass">
     .error-p
         color: red
-
 </style>

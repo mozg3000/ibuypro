@@ -50,7 +50,7 @@ class FindPath extends Model
           }
         }
 //        var_dump($this->graph);
-        var_dump($this->pathTops);
+//        var_dump($this->pathTops);
 
         $solve = new IbuyproAlgorithm($this->graph, $this->startTopNumber, $this->pathTops);
         return $solve->findPath();

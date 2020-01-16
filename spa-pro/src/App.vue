@@ -118,6 +118,22 @@
       </v-btn>
     </v-app-bar>
     <v-content>
+      <router-link :to="{ name: 'mapdraw'}">
+      Здесь конструктор карт
+    </router-link>
+      <br>
+      <router-link :to="{ name: 'mapview'}">
+        Здесь просматриватель карт карт
+      </router-link>
+      <br>
+      <router-link :to="{ name: 'signin'}">
+        Здесь Авторизация
+      </router-link>
+      <br>
+      <router-link :to="{ name: 'signup'}">
+        Здесь Регистрация
+      </router-link>
+
       <v-container
               fluid
               fill-height
@@ -126,22 +142,24 @@
                 align-center
                 justify-center
         >
+
+          <br>
           <router-view></router-view>
         </v-layout>
       </v-container>
     </v-content>
-      <a href="/shop-add">
+    <router-link :to="{ name: 'shopAdd'}">
       <v-btn
-              bottom
-              color="pink"
-              dark
-              fab
-              fixed
-              right
-      >
-          <v-icon>add</v-icon>
-      </v-btn>
-      </a>
+        bottom
+        color="pink"
+        dark
+        fab
+        fixed
+        right
+    >
+      <v-icon>add</v-icon>
+    </v-btn>
+    </router-link>
 
     <v-dialog
             v-model="dialog"

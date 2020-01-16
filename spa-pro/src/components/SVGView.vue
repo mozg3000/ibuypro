@@ -22,15 +22,81 @@
         name: "SVGView",
         data: ()=>({
             draw: '',
-            racks: ''
+            racks: '',
+            pathTops: ''
         }),
         methods: {
-            async findPath(){
+            async findPath() {
                 let res = await postData('/find-path/3', body);
                 console.group('Нахождение пути');
                 console.log(res.data);
                 console.groupEnd('Нахождение пути');
-            }
+                this.pathTops = res.data;
+                // console.log('ddtheh');
+                // console.log(Object.keys(this.pathTops));
+                this.drawPath();
+
+            },
+            drawPath() {
+                let pathTops = [];
+                this.pathTops.forEach(s =>{
+                    s.forEach(t => {
+                        this.racks.forEach((r)=>{
+                            if(t === r.top){
+                                pathTops.push(r);
+                            }
+                        })
+                    })
+                });
+                console.log(pathTops);
+                for(let i =0; i+1<pathTops.length; i++){
+                    let x1 = pathTops[i].position['x'];
+                    let y1 = pathTops[i].position['y'];
+                    let x2 = pathTops[i+1].position['x'];
+                    let y2 = pathTops[i+1].position['y'];
+                    let w1 = pathTops[i].width,
+                        h1 = pathTops[i].height,
+                        w2 = pathTops[i+1].width,
+                        h2 =pathTops[i+1].height;
+                    // console.group('coordinates');
+                    // console.log(x1);
+                    // console.log(y1);
+                    // console.log(x2);
+                    // console.log(y2);
+                    // console.groupEnd();
+
+                    let line = null;
+                    let switch_case = null;
+
+                    if(pathTops[i].label === '' && pathTops[i+1].label === ''){
+                        switch_case = '1';
+                    }else if(pathTops[i].label === '' && pathTops[i+1].label !== ''){
+                        switch_case = '2';
+
+                    }else if(pathTops[i].label !== '' && pathTops[i+1].label === ''){
+                        switch_case = '3';
+                    }
+                    console.log(switch_case);
+
+                    switch (switch_case) {
+                        case '1': {
+                            this.draw.line(x1+2*w1, y1+h1, x2+2*w2, y2+h2).stroke({ width: 3,color: 'black' });
+                            break;
+                        }
+                        case '2': {
+                            this.draw.line(x1+2*w1, y1+h1, x2+w2/2, y2+h2/2).stroke({ width: 3,color: 'black' });
+                            break;
+                        }
+                        case '3': {
+                            this.draw.line(x1+w1/2, y1+h1/2, x2+2*w2, y2+h2).stroke({ width: 3,color: 'black' });
+                            break;
+                        }
+
+                    }
+                    // this.draw.line(x1+w1/2, y1+h1/2, x2+w2/2, y2+h2/2).stroke({ width: 3,color: 'black' });
+
+                }
+            },
         },
         async mounted() {
             console.group('mounted');

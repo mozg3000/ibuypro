@@ -1300,7 +1300,9 @@ class FindPathController extends Controller
 
             $finder = new FindPath($data[$id]['Categories'], $data[$id]['Links'], $data[$id]['Racks']);
 
-            return $finder->findPath();
+            $path = $finder->findPath();
+
+            return $path;
 
         }
     }
