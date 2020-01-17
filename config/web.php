@@ -2,6 +2,7 @@
 
 use app\components\AuthComponent;
 use yii\rbac\DbManager;
+use yii\rest\UrlRule;
 use yii\web\JsonParser;
 
 $params = require __DIR__ . '/params.php';
@@ -47,6 +48,7 @@ $config = [
             // for the mailer to send real emails.
             'useFileTransport' => true,
         ],
+
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [
@@ -61,6 +63,10 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                ['class'=>UrlRule::class,
+                    'controller' => 'shops',
+                    'pluralize' => false
+                ],
                 'shops/<id:\d+>' => 'shops/index',
                 'shop/<id:\d+>' => 'shop/index',
                 'categories/<id:\d+>' => 'categories/index',
