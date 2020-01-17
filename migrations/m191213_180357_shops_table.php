@@ -26,7 +26,7 @@ class m191213_180357_shops_table extends Migration
      */
     public function safeDown()
     {
-        echo "m191213_180357_shops_table cannot be reverted.\n";
+        $this->dropTable('Shops');
 
         return false;
     }
