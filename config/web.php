@@ -65,18 +65,19 @@ $config = [
             'rules' => [
                 ['class'=>UrlRule::class,
                     'controller' => 'shops',
-                    'pluralize' => false
+//                    'pluralize' => false
                 ],
                 ['class'=>UrlRule::class,
                     'controller' => 'racks',
-                    'pluralize' => false
+//                    'pluralize' => false
                 ],
                 'shops/<id:\d+>' => 'shops/index',
                 'shop/<id:\d+>' => 'shop/index',
                 'categories/<id:\d+>' => 'categories/index',
                 'category/<id:\d+>' => 'category/index',
                 'racks/<id:\d+>' => 'racks/index',
-                'find-path/<id:\d+>' => 'find-path/index'
+                'find-path/<id:\d+>' => 'find-path/index',
+                'maps/<id:\d+>' => 'maps/index'
             ],
         ],
     ],

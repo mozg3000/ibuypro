@@ -98,7 +98,7 @@
             async saveMap(e) {
                 let map = new Map(this.graph);
                 console.log(map);
-                let res = await postData('/racks', map.racks);
+                let res = await postData('/racks', {"Racks":map.racks});
                 console.group('ответ от сервера после сохранения');
                 console.log(res);
                 console.groupEnd()
