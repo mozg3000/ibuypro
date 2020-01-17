@@ -67,6 +67,10 @@ $config = [
                     'controller' => 'shops',
                     'pluralize' => false
                 ],
+                ['class'=>UrlRule::class,
+                    'controller' => 'racks',
+                    'pluralize' => false
+                ],
                 'shops/<id:\d+>' => 'shops/index',
                 'shop/<id:\d+>' => 'shop/index',
                 'categories/<id:\d+>' => 'categories/index',
