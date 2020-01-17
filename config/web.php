@@ -71,13 +71,19 @@ $config = [
                     'controller' => 'racks',
 //                    'pluralize' => false
                 ],
+                ['class'=>UrlRule::class,
+                    'controller' => 'connections',
+//                    'pluralize' => false
+                ],
                 'shops/<id:\d+>' => 'shops/index',
                 'shop/<id:\d+>' => 'shop/index',
                 'categories/<id:\d+>' => 'categories/index',
                 'category/<id:\d+>' => 'category/index',
                 'racks/<id:\d+>' => 'racks/index',
                 'find-path/<id:\d+>' => 'find-path/index',
-                'maps/<id:\d+>' => 'maps/index'
+                'maps/<id:\d+>' => 'maps/index',
+                'maps' => 'maps/create',
+
             ],
         ],
     ],

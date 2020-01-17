@@ -8,8 +8,12 @@ use Yii;
  * This is the model class for table "connections".
  *
  * @property int $id
- * @property string $ConnectionAddress
- * @property int $ConnectionStatus
+ * @property int|null $firstN
+ * @property int|null $secondN
+ * @property int $id_shops
+ * @property int|null $weight
+ *
+ * @property Shops $shops
  */
 class ConnectionsBase extends \yii\db\ActiveRecord
 {
@@ -27,9 +31,9 @@ class ConnectionsBase extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['ConnectionAddress', 'ConnectionStatus'], 'required'],
-            [['ConnectionStatus'], 'integer'],
-            [['ConnectionAddress'], 'string', 'max' => 100],
+            [['firstN', 'secondN', 'id_shops', 'weight'], 'integer'],
+            [['id_shops'], 'required'],
+            [['id_shops'], 'exist', 'skipOnError' => true, 'targetClass' => Shops::className(), 'targetAttribute' => ['id_shops' => 'id']],
         ];
     }
 
@@ -40,8 +44,18 @@ class ConnectionsBase extends \yii\db\ActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'ConnectionAddress' => Yii::t('app', 'Connection Address'),
-            'ConnectionStatus' => Yii::t('app', 'Connection Status'),
+            'firstN' => Yii::t('app', 'First N'),
+            'secondN' => Yii::t('app', 'Second N'),
+            'id_shops' => Yii::t('app', 'Id Shops'),
+            'weight' => Yii::t('app', 'Weight'),
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getShops()
+    {
+        return $this->hasOne(Shops::className(), ['id' => 'id_shops']);
     }
 }

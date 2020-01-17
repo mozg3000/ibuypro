@@ -1,5 +1,15 @@
 import axios from 'axios';
 
+function putData(url, body) {
+    return axios({
+        method: 'put',
+        url: url,
+        data: body,
+        headers: {'Content-Type': 'application/json'}
+    });
+}
+
+
 function getData(url){
     return axios({
         method: 'get',
@@ -15,4 +25,6 @@ function postData(url, body) {
         headers: {'Content-Type': 'application/json'}
     });
 }
-export {getData, postData};
+
+
+export {getData, postData, putData};

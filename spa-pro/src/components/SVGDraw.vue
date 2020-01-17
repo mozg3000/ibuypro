@@ -41,7 +41,7 @@
     import {moveRect} from '../lib/utils/draw-svg/elementMoveEventAssistent';
     import mapInit from "../lib/utils/draw-svg/mapInit";
     import {buildTails} from "../lib/utils/tails";
-    import {postData} from "../lib/utils/rest-api/api-request";
+    import {getData, postData, putData} from "../lib/utils/rest-api/api-request";
 
     export default {
         name: "SVGComponent",
@@ -96,9 +96,12 @@
                 moveRect(this.rectTemplate, attrs, -90, this.graph, this.paper, {x: -189, y: -99}, {x: 90, y: 99});
             },
             async saveMap(e) {
+                console.log(this.graph.toJSON());
+                let g = await putData('/shops/1', {"map": JSON.stringify(this.graph.toJSON())});
+                console.log(g);
                 let map = new Map(this.graph);
                 console.log(map);
-                let res = await postData('/racks', {"Racks":map.racks});
+                let res = await postData('/maps', {"Racks": map.racks, "Links": map.links});
                 console.group('ответ от сервера после сохранения');
                 console.log(res);
                 console.groupEnd()
@@ -228,11 +231,18 @@
 
             },
         },
-        mounted() {
+        async mounted() {
+
+
 
             let {graph, paper, rectTemplate} = mapInit(this.graph, this.paper, this.rectTemplate);
 
-            this.graph = graph;
+            let res = await getData('/shops/1');
+            if(1){
+                console.log(res.data.map);
+                this.graph = graph.fromJSON(JSON.parse(res.data.map));
+            }
+            // this.graph = graph;
             this.paper = paper;
             this.rectTemplate = rectTemplate;
         }

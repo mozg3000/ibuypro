@@ -12,6 +12,7 @@ use yii\rest\Controller;
 class MapsController extends Controller
 {
     public $modelClass = Map::class;
+
     public function init() {
         try {
             parent::init();
@@ -28,19 +29,19 @@ class MapsController extends Controller
             'index' => [
                 'class' => 'app\controllers\actions\maps\IndexAction',
                 'modelClass' => $this->modelClass,
-//                'checkAccess' => [$this, 'checkAccess'],
+                'checkAccess' => [$this, 'checkAccess'],
             ],
 //            'view' => [
 //                'class' => 'yii\rest\ViewAction',
-////                'modelClass' => $this->modelClass,
-////                'checkAccess' => [$this, 'checkAccess'],
+//                'modelClass' => $this->modelClass,
+//                'checkAccess' => [$this, 'checkAccess'],
 //            ],
-//            'create' => [
-//                'class' => 'yii\rest\CreateAction',
-////                'modelClass' => $this->modelClass,
-////                'checkAccess' => [$this, 'checkAccess'],
-////                'scenario' => $this->createScenario,
-//            ],
+            'create' => [
+                'class' => 'app\controllers\actions\maps\CreateAction',
+                'modelClass' => $this->modelClass,
+                'checkAccess' => [$this, 'checkAccess'],
+//                'scenario' => $this->createScenario,
+            ],
 //            'update' => [
 //                'class' => 'yii\rest\UpdateAction',
 ////                'modelClass' => $this->modelClass,
