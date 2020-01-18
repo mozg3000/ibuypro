@@ -136,13 +136,14 @@
         async mounted() {
             console.group('mounted');
 
-            let res = await getData('/racks/3');
-            this.racks = res.data.Racks;
+            let res = await getData('/maps/1');
+            this.racks = res.data;
             this.options = this.racks.filter(x => x.label != '').map(r => {
                 if (r.label != '') return {name: r.label};
             });
 
             console.group('Полученные данные');
+            // console.log(res);
             console.log(this.racks);
             console.groupEnd('getData');
 
