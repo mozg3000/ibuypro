@@ -241,6 +241,15 @@
             if(1){
                 console.log(res.data.map);
                 this.graph = graph.fromJSON(JSON.parse(res.data.map));
+                // console.log(paper);
+                // console.log(this.graph.getCells()[0].findView(paper));
+                this.graph.getCells().forEach(cell=>{
+                  // Add remove button to the link.
+                  let tools = new joint.dia.ToolsView({
+                    tools: [new joint.linkTools.Remove()]
+                  });
+                  cell.findView(paper).addTools(tools);
+                })
             }
             // this.graph = graph;
             this.paper = paper;
