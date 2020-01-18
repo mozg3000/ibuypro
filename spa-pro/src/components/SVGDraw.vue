@@ -1,5 +1,8 @@
 <template>
+
   <div id="c-container">
+    <p>{{value}}</p>
+<!--    <multiselect v-model="value" :options="options" :placeholder="'Выбран магазин '+ placeholder"></multiselect>-->
     <div id="svg-container"></div>
     <div id="svg-controls">
       <button id="addRectH" @click.prevent.stop="addRectHHandler">
@@ -42,16 +45,25 @@
     import mapInit from "../lib/utils/draw-svg/mapInit";
     import {buildTails} from "../lib/utils/tails";
     import {getData, postData, putData} from "../lib/utils/rest-api/api-request";
+    import Multiselect from 'vue-multiselect'
 
     export default {
         name: "SVGComponent",
-        props: {},
+        components: {Multiselect},
+        props: {id_shop},
         data: () => ({
             graph: '',
             paper: '',
             rectTemplate: '',
-            isLinking: false
+            isLinking: false,
+            value: '',
+            // options: []
         }),
+      computed: {
+        // placeholder(){
+        //   return this.value ? this.value :' - нет'
+        // }
+      },
         methods: {
             buildTails() {
                 let map = new Map(this.graph);
@@ -101,6 +113,7 @@
                 console.log(g);
                 let map = new Map(this.graph);
                 console.log(map);
+                // let res = await postData('/maps', JSON.stringify(map));
                 let res = await postData('/maps', {"Racks": map.racks, "Links": map.links});
                 console.group('ответ от сервера после сохранения');
                 console.log(res);
@@ -233,13 +246,13 @@
         },
         async mounted() {
 
-
-
             let {graph, paper, rectTemplate} = mapInit(this.graph, this.paper, this.rectTemplate);
 
             let res = await getData('/shops/1');
+            this.value = res.data.ShopName + ' - ' + res.data.ShopAddress;
+            // this.options.push(this.value);
             if(1){
-                console.log(res.data.map);
+                // console.log(res.data.map);
                 this.graph = graph.fromJSON(JSON.parse(res.data.map));
                 // console.log(paper);
                 // console.log(this.graph.getCells()[0].findView(paper));
