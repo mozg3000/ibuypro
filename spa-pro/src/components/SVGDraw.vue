@@ -50,7 +50,7 @@
     export default {
         name: "SVGComponent",
         components: {Multiselect},
-        props: {id_shop},
+        // props: {id_shop},
         data: () => ({
             graph: '',
             paper: '',
@@ -269,6 +269,7 @@
             this.rectTemplate = rectTemplate;
         }
     }
+
 </script>
 
 <style scoped lang="sass">

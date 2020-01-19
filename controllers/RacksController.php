@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\models\RacksBase;
 use yii\base\InvalidConfigException;
+use yii\filters\auth\HttpBearerAuth;
 use yii\rest\ActiveController;
 use yii\rest\Controller;
 
@@ -19,6 +20,13 @@ class RacksController extends ActiveController
         }
         \Yii::$app->user->enableSession = false;
         \Yii::$app->user->enableAutoLogin = false;
+    }
+
+    public function behaviors()
+    {
+        $behaviors = parent::behaviors();
+        $behaviors['authenticator']['class'] = HttpBearerAuth::className();
+        return $behaviors;
     }
 
 

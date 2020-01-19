@@ -143,7 +143,7 @@
             });
 
             console.group('Полученные данные');
-            // console.log(res);
+            console.log(res);
             console.log(this.racks);
             console.groupEnd('getData');
 

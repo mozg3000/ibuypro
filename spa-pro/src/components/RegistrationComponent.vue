@@ -165,6 +165,7 @@
                             if(data.status === 'registered'){
                                 this.emailError = false;
                                 this.usernameError = false;
+                                this.$router.push('/');
                                 // this.error = false;
                             }else if(data.status === 'rejected'){
                                 if(data.error.email){

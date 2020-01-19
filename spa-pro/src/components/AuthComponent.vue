@@ -122,6 +122,7 @@
                             if(data.status === 'OK'){
                                 console.log(data);
                                 this.error = false;
+                                this.$router.push('/');
                             }else if(data.status === 'deny'){
                                 console.log(data.msg);
                                 this.msg = data.msg;
