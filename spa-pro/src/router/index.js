@@ -7,8 +7,25 @@ import Map from "../views/Map";
 import MapView from "../views/MapView";
 import AuthComponent from "../components/AuthComponent";
 import RegistrationComponent from "../components/RegistrationComponent";
+import store from '../store/index'
 
 Vue.use(VueRouter);
+
+const ifNotAuthenticated = (to, from, next) => {
+    if (!store.getters.isAuthenticated) {
+        next();
+        return;
+    }
+    next('/');
+};
+
+const ifAuthenticated = (to, from, next) => {
+    if (store.getters.isAuthenticated) {
+        next();
+        return
+    }
+    next('/sign-in');
+};
 
 const routes = [
     {
@@ -30,7 +47,8 @@ const routes = [
     {
         path: '/map/draw',
         name:'mapdraw',
-        component: Map
+        component: Map,
+        beforeEnter: ifAuthenticated,
     },
     {
         path: '/map/view',
@@ -40,12 +58,14 @@ const routes = [
     {
         path: '/sign-in',
         name:'signin',
-        component: AuthComponent
+        component: AuthComponent,
+        beforeEnter: ifNotAuthenticated,
     },
     {
         path: '/sign-up',
         name:'signup',
-        component: RegistrationComponent
+        component: RegistrationComponent,
+        beforeEnter: ifNotAuthenticated,
     }
 ]
 
