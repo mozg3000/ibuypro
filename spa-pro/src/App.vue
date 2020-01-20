@@ -101,7 +101,7 @@
       ></v-text-field>
       <v-spacer></v-spacer>
       <div v-if="$store.getters.isAuthenticated">
-        <span @click="logout">Logout</span>
+        <a @click.prevent="logout">Logout</a>
       </div>
       <v-spacer></v-spacer>
 

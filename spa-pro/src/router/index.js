@@ -20,7 +20,7 @@ const ifNotAuthenticated = (to, from, next) => {
 };
 
 const ifAuthenticated = (to, from, next) => {
-    if (store.getters.isAuthenticated) {
+    if (store.getters.isAuthenticated && store.getters.isAdmin) {
         next();
         return
     }

@@ -5,6 +5,7 @@ namespace app\controllers;
 use app\models\Users;
 use yii\helpers\Json;
 use yii\web\Response;
+use app\components\RbacComponent;
 
 class AuthController extends \yii\web\Controller
 {
@@ -26,18 +27,21 @@ class AuthController extends \yii\web\Controller
                 $user = \Yii::$app->auth->getUserByName($model->username);
 //                var_dump($user);
 //                return $this->redirect(['/']);
+//                return \Yii::$app->rbac->canAdmin();
                 return JSON::encode
                 ([
                     'status' => 'OK',
                     'token' => $user->token,
-                    'msg' => 'Вы удачно вошли в систему'
+                    'msg' => 'Вы удачно вошли в систему',
+                    'admin' => \Yii::$app->rbac->canAdmin(),
                 ],JSON_FORCE_OBJECT);
             }else{
                 return JSON::encode
                 ([
                     'status' => 'deny',
                     'token' => '',
-                    'msg' => 'Неверный пароль или имя пользователя'
+                    'msg' => 'Неверный пароль или имя пользователя',
+                    'admin' => false
                 ],JSON_FORCE_OBJECT);
             }
         }

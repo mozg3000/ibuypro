@@ -10,7 +10,7 @@ export default new Vuex.Store({
         token: localStorage.getItem('user-token') || '',
         status: '',
         errorMsg: '',
-        admin: false,
+        admin: localStorage.getItem('user-isAdmin') || false,
     },
     getters: {
         isAuthenticated: state => !!state.token,
@@ -24,8 +24,8 @@ export default new Vuex.Store({
             state.status = 'loading'
         },
 
-        AUTH_SUCCESS: (state, token) => {
-
+        AUTH_SUCCESS: (state, {token,admin}) => {
+            state.admin = admin;
             state.status = 'success';
             state.token = token;
 
@@ -61,10 +61,12 @@ export default new Vuex.Store({
                         console.log(data.status);
                         if(data.status === 'OK'){
                             console.log(data);
-                            let token = data.token;
+                            let token = data.token,
+                                isAdmin = data.admin;
                             localStorage.setItem('user-token', token); // store the token in localstorage
+                            localStorage.setItem('user-isAdmin', isAdmin); // store the token in localstorage
                             axios.defaults.headers.common['Authorization'] = `Bearer ${{token}}`;
-                            commit('AUTH_SUCCESS', token);
+                            commit('AUTH_SUCCESS', {token, isAdmin});
                             // this.error = false;
                             // this.$router.push('/').then();
 
@@ -74,6 +76,7 @@ export default new Vuex.Store({
                             // this.error = true;
                             commit('AUTH_ERROR', msg);
                             localStorage.removeItem('user-token'); // if the request fails, remove any possible user token if possible
+                            localStorage.removeItem('user-isAdmin');
                         }
                     }
                 }).catch(e =>{
@@ -84,6 +87,7 @@ export default new Vuex.Store({
             return new Promise((resolve, reject)=>{
                 commit('LOGOUT');
                 localStorage.removeItem('user-token');
+                localStorage.removeItem('user-isAdmin');
                 // remove the axios default header;
                 delete axios.defaults.headers.common['Authorization'];
                 resolve()
