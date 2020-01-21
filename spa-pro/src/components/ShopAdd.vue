@@ -36,8 +36,8 @@
         }),
         methods: {
             async addShop() {
-                console.log(this.shop.id);
-                if (this.shop.id){
+                console.log(this.shop == undefined);
+                if (this.shop != undefined){
                     let res = await putData('shops/'+this.shop.id, {
                         ShopName: this.ShopName,
                         ShopAddress: this.ShopAddress,
@@ -45,6 +45,7 @@
                         ShopPhone: this.ShopPhone,
                         description: this.description
                     });
+                    this.$router.push({name: 'shop', params: {id: this.shop.id}});
                     // console.log(res);
                 }else{
                     let res = await postData('shops', {
@@ -54,14 +55,15 @@
                         ShopPhone: this.ShopPhone,
                         description: this.description
                     });
-                    // console.log(res);
+                    console.log(res);
+                    this.$router.push({name: 'shop', params: {id: res.data.id}});
                 }
-                await this.$router.push({name: 'shop', params: {id: res.data.id}});
+
             },
 
         },
         created() {
-            if (this.shop.id) {
+            if (this.shop) {
                 this.ShopName = this.shop.ShopName;
                 this.ShopAddress = this.shop.ShopAddress;
                 this.ShopEmail = this.shop.ShopEmail;

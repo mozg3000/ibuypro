@@ -123,22 +123,26 @@
       </v-btn>
     </v-app-bar>
     <v-content>
-      <p>Пользователи: user/12345678, admin/12345678</p>
-      <router-link :to="{ name: 'mapdraw'}">
-        Здесь конструктор карт
-      </router-link>
-      <br>
-      <router-link :to="{name:'mapview', params:{id:1}}">
-        Здесь просматриватель карт карт
-      </router-link>
-      <br>
-      <router-link :to="{ name: 'signin'}">
-        Здесь Авторизация
-      </router-link>
-      <br>
-      <router-link :to="{ name: 'signup'}">
-        Здесь Регистрация
-      </router-link>
+      <div class="info">
+        <br>
+        <p>Пользователи: user/12345678, admin/12345678</p>
+        <!--      <router-link :to="{ name: 'mapdraw'}">-->
+        <!--        Здесь конструктор карт-->
+        <!--      </router-link>-->
+        <!--      <br>-->
+        <!--      <router-link :to="{name:'mapview', params:{id:1}}">-->
+        <!--        Здесь просматриватель карт карт-->
+        <!--      </router-link>-->
+        <br>
+        <router-link :to="{ name: 'signin'}" class="info">
+          Здесь Авторизация
+        </router-link>
+        <br>
+        <br>
+        <router-link :to="{ name: 'signup'}" class="info">
+          Здесь Регистрация
+        </router-link>
+      </div>
 
       <v-container
           fluid
@@ -415,3 +419,11 @@
 
     };
 </script>
+<style scoped lang="sass">
+  .info
+    margin: 50px
+    color: white
+    padding: 10px
+  .router-link
+    margin_bottom: 50px
+</style>

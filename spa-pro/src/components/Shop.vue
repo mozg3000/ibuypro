@@ -115,7 +115,7 @@
             categoriesId: 0,
             endpoint: '/shops/',
             isHidden: true,
-            tabs: '',
+            tabs: 'mobile-tabs-5-1',
             text: ['Здесь будет карта!!!', 'Здесь будут избранные маршруты', 'Здесь будет информация'],
             search: ''
         }),

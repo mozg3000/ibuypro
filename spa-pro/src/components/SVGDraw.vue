@@ -254,8 +254,8 @@
                 console.log(res);
                 this.value = res.data.ShopName + ' - ' + res.data.ShopAddress;
                 // this.options.push(this.value);
-                    // console.log(res.data.map);
-                    if(res.data.map !==''){
+                    console.log(res.data.map);
+                    if(res.data.map){
                         this.graph = graph.fromJSON(JSON.parse(res.data.map));
                         // console.log(paper);
                         // console.log(this.graph.getCells()[0].findView(paper));
