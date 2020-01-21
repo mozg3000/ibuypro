@@ -82,8 +82,8 @@ $config = [
                 'category/<id:\d+>' => 'category/index',
                 'racks/<id:\d+>' => 'racks/index',
                 'find-path/<id:\d+>' => 'find-path/index',
+                'POST maps/<id:\d+>' => 'maps/create',
                 'maps/<id:\d+>' => 'maps/index',
-                'maps' => 'maps/create',
 
             ],
         ],

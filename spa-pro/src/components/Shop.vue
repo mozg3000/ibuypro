@@ -14,8 +14,10 @@
             class="hidden-sm-and-down"
             v-model="search"
             id="search"
-            v-on:click="refreshCategories"
+            @change="refreshCategories"
         ></v-text-field>
+        <v-spacer></v-spacer>
+
         <v-spacer></v-spacer>
         <template v-slot:extension>
           <v-tabs
@@ -53,16 +55,16 @@
         >
           <v-card flat>
             <v-card-text>
+              <router-link :to="{name: 'mapdraw', params:{id: id}}">Нарисовать\редактировать карту</router-link>
             </v-card-text>
             <SVGView :id="id"></SVGView>
           </v-card>
-          <v-list v-if="isHidden">
+          <v-list >
             <v-list-group
                 v-for="item in categories"
                 :key="item.name"
                 :prepend-icon="item.img"
                 no-action
-                @click="setCategories"
             >
               <template v-slot:activator>
                 <v-list-item-content :data-parent="item.id">
@@ -76,11 +78,15 @@
             :value="'mobile-tabs-5-3'"
         >
           <v-card flat>
+            <router-link :to="{name: 'shopAdd', params:{shop:shop}}">редактировать данные</router-link>
             <v-card-text>
               <h2>{{shop.ShopName}}</h2>
               <h3>{{shop.ShopAddress}}</h3>
-              <p><strong>{{shop.ShopEmail}}</strong></p>
-              <p><strong>{{shop.ShopPhone}}</strong></p>
+              <p>
+                <strong>{{shop.ShopEmail}}</strong>
+                <br>
+                <strong>{{shop.ShopPhone}}</strong>
+              </p>
               <p><strong>{{shop.description}}</strong></p>
             </v-card-text>
           </v-card>
@@ -108,7 +114,7 @@
             categories: null,
             categoriesId: 0,
             endpoint: '/shops/',
-            isHidden: false,
+            isHidden: true,
             tabs: '',
             text: ['Здесь будет карта!!!', 'Здесь будут избранные маршруты', 'Здесь будет информация'],
             search: ''
@@ -160,8 +166,18 @@
             refreshCategories() {
                 console.log("refreshCategories");
                 this.categoriesId = 0;
-                document.getElementById("search").value = "";
-                this.categories = this.getCategories();
+                this.isHidden = this.isHidden?!this.isHidden:this.isHidden;
+                // document.getElementById("search").value = "";
+                let categories = this.categories.slice();
+                // console.log(categories);
+                // console.log(categories.filter(x=>{
+                //     return (x.name.toLowerCase()).indexOf(this.search.toLowerCase()) !== -1
+                // }));
+                this.categories = categories.filter(x=>{
+                    // console.log(x.name.toLowerCase());
+                    // console.log(x.name.toLowerCase()).indexOf(this.search.toLowerCase() !== -1);
+                    return (x.name.toLowerCase()).indexOf(this.search.toLowerCase()) !== -1
+                }).map(x=>{return x.name});
             },
             setHidden() {
                 this.isHidden = !this.isHidden;
@@ -185,9 +201,9 @@
         },
 
         watch: {
-            search(after, before) {
-                this.searcher();
-            }
+            // search(after, before) {
+            //     this.searcher();
+            // }
         }
     }
 </script>

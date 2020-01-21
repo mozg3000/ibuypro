@@ -48,7 +48,6 @@
         }),
         methods: {
             async findPath() {
-                console.log(this.value);
                 if(this.value){
                     let res = await postData('/find-path/'+this.id, {'Categories': this.value.map(x => {
                             return x.name;
@@ -77,10 +76,10 @@
                     });
                     console.log(pathTops);
                     for (let i = 0; i + 1 < pathTops.length; i++) {
-                        let x1 = pathTops[i].position['x'];
-                        let y1 = pathTops[i].position['y'];
-                        let x2 = pathTops[i + 1].position['x'];
-                        let y2 = pathTops[i + 1].position['y'];
+                        let x1 = pathTops[i]['x'];
+                        let y1 = pathTops[i]['y'];
+                        let x2 = pathTops[i + 1]['x'];
+                        let y2 = pathTops[i + 1]['y'];
                         let w1 = pathTops[i].width,
                             h1 = pathTops[i].height,
                             w2 = pathTops[i + 1].width,

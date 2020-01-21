@@ -5,6 +5,7 @@
                 max-width="500"
         >
             <v-container fluid>
+
                 <v-row dense>
                     <v-col
                             v-for="card in shops"
@@ -41,6 +42,18 @@
                         </v-card>
                     </v-col>
                 </v-row>
+              <router-link :to="{ name: 'shopAdd', parapms:{id:null}}">
+                <v-btn
+                    bottom
+                    color="pink"
+                    dark
+                    fab
+                    fixed
+                    right
+                >
+                  <v-icon>add</v-icon>
+                </v-btn>
+              </router-link>
             </v-container>
         </v-card>
     </v-app>

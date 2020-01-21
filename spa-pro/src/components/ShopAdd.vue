@@ -1,89 +1,84 @@
 <template lang="html">
-<v-app id="inspire">
-    <v-container fluid>
-        <v-row align="center">
+  <v-app id="inspire">
+    <v-card>
+      <form action="#" name="addShop">
+        <input type="text" placeholder="Название" v-model="ShopName"/><br>
+        <input type="text" placeholder="Адресс" v-model="ShopAddress"/><br>
+        <input type="email" placeholder="Почта" v-model="ShopEmail"/><br>
+        <input type="number" placeholder="Телефон" v-model="ShopPhone"/><br>
+        <textarea placeholder="Описание" v-model="description"/><br>
+        <input type="submit" value="Добавить" @click.prevent.stop="addShop">
+      </form>
 
-            <v-col height="600px">
-                <v-select
-                        :items="chain"
-                        multiple
-                        chips
-                        hint="Воспользуйтесь фильтром"
-                        persistent-hint
-                        v-on:change="getSelectSearch($event)"
-                ></v-select>
-            </v-col>
-        </v-row>
-    </v-container>
-    <v-simple-table>
-        <template v-slot:default>
-            <thead>
-            <tr>
-                <th class="text-left">Name</th>
-                <th class="text-left">Address</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr v-for="item in desserts" :key="item.name">
-                <td>{{ item.name }}</td>
-                <td>{{ item.calories }}</td>
-            </tr>
-            </tbody>
-        </template>
-    </v-simple-table>
-</v-app>
+
+    </v-card>
+
+  </v-app>
+
 </template>
 
 <script>
-    import axios from 'axios';
+    // import axios from 'axios';
+    import {getData, postData, putData} from "../lib/utils/rest-api/api-request";
+    import SVGDraw from "../components/SVGDraw"
 
     export default {
         name: 'ShopAdd',
+        props: ['shop'],
+        components: {SVGDraw},
+        data: () => ({
+            ShopName: '',
+            ShopAddress: '',
+            ShopEmail: '',
+            ShopPhone: '',
+            description: '',
 
-        data() {
-            return {
-                shop: null,
-                post: null,
-                chain: [],
-                endpoint: 'db.json',
-            }
-        },
+        }),
         methods: {
-            getPost() {
-                axios(this.endpoint)
-                    .then(response => {
-                        console.log("axios");
-                        this.post = response.data;
-                        this.getChain();
-                    })
-                    .catch( error => {
-                        console.log('-----errorChain-------');
-                        console.log(error)
-                    })
-            },
-
-            getChain() {
-                console.log("chains");
-                let chainArr = [];
-                for (let item of this.post.Сhain){
-                    chainArr.push(item.Name);
+            async addShop() {
+                console.log(this.shop.id);
+                if (this.shop.id){
+                    let res = await putData('shops/'+this.shop.id, {
+                        ShopName: this.ShopName,
+                        ShopAddress: this.ShopAddress,
+                        ShopEmail: this.ShopEmail,
+                        ShopPhone: this.ShopPhone,
+                        description: this.description
+                    });
+                    // console.log(res);
+                }else{
+                    let res = await postData('shops', {
+                        ShopName: this.ShopName,
+                        ShopAddress: this.ShopAddress,
+                        ShopEmail: this.ShopEmail,
+                        ShopPhone: this.ShopPhone,
+                        description: this.description
+                    });
+                    // console.log(res);
                 }
-                this.chain = chainArr;
+                await this.$router.push({name: 'shop', params: {id: res.data.id}});
             },
 
-            getSelectSearch(event) {
-                console.log(event.target);
-            }
-
         },
-
         created() {
-            console.log("created");
-            this.getPost(this.id);
-        },
-
-        watch: {
-
+            if (this.shop.id) {
+                this.ShopName = this.shop.ShopName;
+                this.ShopAddress = this.shop.ShopAddress;
+                this.ShopEmail = this.shop.ShopEmail;
+                this.ShopPhone = this.shop.ShopPhone;
+                this.description = this.shop.description;
+            }
         }
     }
 </script>
+<style scoped lang="sass">
+  input, textarea
+    border: 1px solid black
+    margin: 5px auto
+    width: 300px
+
+    &[type='submit']
+      background-color: green
+  textarea
+    height: 200px
+</style>

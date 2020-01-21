@@ -123,6 +123,7 @@
       </v-btn>
     </v-app-bar>
     <v-content>
+      <p>Пользователи: user/12345678, admin/12345678</p>
       <router-link :to="{ name: 'mapdraw'}">
         Здесь конструктор карт
       </router-link>
@@ -153,18 +154,6 @@
         </v-layout>
       </v-container>
     </v-content>
-    <router-link :to="{ name: 'shopAdd'}">
-      <v-btn
-          bottom
-          color="pink"
-          dark
-          fab
-          fixed
-          right
-      >
-        <v-icon>add</v-icon>
-      </v-btn>
-    </router-link>
 
     <v-dialog
         v-model="dialog"

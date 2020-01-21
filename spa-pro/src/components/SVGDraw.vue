@@ -50,7 +50,7 @@
     export default {
         name: "SVGComponent",
         components: {Multiselect},
-        // props: {id_shop},
+        props: ['id'],
         data: () => ({
             graph: '',
             paper: '',
@@ -109,15 +109,16 @@
             },
             async saveMap(e) {
                 console.log(this.graph.toJSON());
-                let g = await putData('/shops/1', {"map": JSON.stringify(this.graph.toJSON())});
+                let g = await putData('/shops/'+this.id, {"map": JSON.stringify(this.graph.toJSON())});
                 console.log(g);
                 let map = new Map(this.graph);
                 console.log(map);
                 // let res = await postData('/maps', JSON.stringify(map));
-                let res = await postData('/maps', {"Racks": map.racks, "Links": map.links});
+                let res = await postData('/maps/'+this.id, {"Racks": map.racks, "Links": map.links});
                 console.group('ответ от сервера после сохранения');
                 console.log(res);
-                console.groupEnd()
+                console.groupEnd();
+                await this.$router.push({name: 'shop', params:{id:this.id}});
             },
             addStartPoint(e) {
                 let startPoint = this.rectTemplate.clone();
@@ -248,22 +249,31 @@
 
             let {graph, paper, rectTemplate} = mapInit(this.graph, this.paper, this.rectTemplate);
 
-            let res = await getData('/shops/1');
-            this.value = res.data.ShopName + ' - ' + res.data.ShopAddress;
-            // this.options.push(this.value);
-            if(1){
-                // console.log(res.data.map);
-                this.graph = graph.fromJSON(JSON.parse(res.data.map));
-                // console.log(paper);
-                // console.log(this.graph.getCells()[0].findView(paper));
-                this.graph.getCells().forEach(cell=>{
-                  // Add remove button to the link.
-                  let tools = new joint.dia.ToolsView({
-                    tools: [new joint.linkTools.Remove()]
-                  });
-                  cell.findView(paper).addTools(tools);
-                })
+            if (this.id){
+                let res = await getData('/shops/'+this.id);
+                console.log(res);
+                this.value = res.data.ShopName + ' - ' + res.data.ShopAddress;
+                // this.options.push(this.value);
+                    // console.log(res.data.map);
+                    if(res.data.map !==''){
+                        this.graph = graph.fromJSON(JSON.parse(res.data.map));
+                        // console.log(paper);
+                        // console.log(this.graph.getCells()[0].findView(paper));
+                        this.graph.getCells().forEach(cell=>{
+                            // Add remove button to the link.
+                            let tools = new joint.dia.ToolsView({
+                                tools: [new joint.linkTools.Remove()]
+                            });
+                            cell.findView(paper).addTools(tools);
+                        })
+                    }else{
+                        this.graph = graph;
+                    }
+
+            }else{
+                this.graph = graph;
             }
+
             // this.graph = graph;
             this.paper = paper;
             this.rectTemplate = rectTemplate;

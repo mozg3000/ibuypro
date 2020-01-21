@@ -42,13 +42,15 @@ const routes = [
     {
         path: '/shop-add',
         name:'shopAdd',
-        component: ShopAdd
+        component: ShopAdd,
+        props: true
     },
     {
         path: '/map/draw',
         name:'mapdraw',
         component: Map,
         beforeEnter: ifAuthenticated,
+        props: true
     },
     {
         path: '/map/view/:id',

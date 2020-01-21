@@ -10,13 +10,13 @@ use yii\rest\Action;
 
 class CreateAction extends Action
 {
-    public function run()
+    public function run($id)
     {
         if (!\Yii::$app->rbac->canAdmin()) {
             throw new \yii\web\ForbiddenHttpException(sprintf('Only administrators can edit maps.'));
         }
-        Racks::deleteAll(['id_shops'=>1]);
-        Connections::deleteAll(['id_shops'=>1]);
+        Racks::deleteAll(['id_shops'=>$id]);
+        Connections::deleteAll(['id_shops'=>$id]);
 
         $data = \Yii::$app->request->post();
         $racks = $data['Racks'];
@@ -33,7 +33,7 @@ class CreateAction extends Action
                 'fill' => $rack['fill'],
                 'angle' => $rack['angle'],
                 'top' => $rack['top'],
-                'id_shops'=>1
+                'id_shops'=>$id
             ]);
             $model->save();
         }
