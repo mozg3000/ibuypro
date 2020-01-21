@@ -34,7 +34,7 @@ const routes = [
         component: Home
     },
     {
-        path: '/shop/:id',
+        path: '/shop',
         name:'shop',
         component: Shop,
         props: true
@@ -51,9 +51,11 @@ const routes = [
         beforeEnter: ifAuthenticated,
     },
     {
-        path: '/map/view',
+        path: '/map/view/:id',
         name:'mapview',
-        component: MapView
+        component: MapView,
+        props: true
+
     },
     {
         path: '/sign-in',

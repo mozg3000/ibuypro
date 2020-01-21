@@ -12,6 +12,9 @@ class CreateAction extends Action
 {
     public function run()
     {
+        if (!\Yii::$app->rbac->canAdmin()) {
+            throw new \yii\web\ForbiddenHttpException(sprintf('Only administrators can edit maps.'));
+        }
         Racks::deleteAll(['id_shops'=>1]);
         Connections::deleteAll(['id_shops'=>1]);
 

@@ -101,7 +101,7 @@
       ></v-text-field>
       <v-spacer></v-spacer>
       <div v-if="$store.getters.isAuthenticated">
-        <a @click.prevent="logout">Logout</a>
+        <a @click.prevent="logout" class="black" >Logout</a>
       </div>
       <v-spacer></v-spacer>
 
@@ -127,7 +127,7 @@
         Здесь конструктор карт
       </router-link>
       <br>
-      <router-link :to="{ name: 'mapview'}">
+      <router-link :to="{name:'mapview', params:{id:1}}">
         Здесь просматриватель карт карт
       </router-link>
       <br>

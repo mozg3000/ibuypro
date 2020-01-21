@@ -1,137 +1,161 @@
 <template lang="html">
-    <v-app id="inspire">
-        <v-card>
-            <v-toolbar flat>
+  <v-app id="inspire">
+    <v-card>
+      <v-toolbar flat>
 
-                <v-app-bar-nav-icon v-on:click="refreshCategories(); setHidden();"></v-app-bar-nav-icon>
+        <v-app-bar-nav-icon v-on:click="refreshCategories(); setHidden();"></v-app-bar-nav-icon>
 
-                <v-text-field
-                        flat
-                        solo-inverted
-                        hide-details
-                        prepend-inner-icon="search"
-                        label="Search"
-                        class="hidden-sm-and-down"
-                        v-model="search"
-                        id="search"
-                        v-on:click="refreshCategories"
-                ></v-text-field>
-
-                <v-spacer></v-spacer>
-
-
-                <template v-slot:extension>
-                    <v-tabs
-                            v-model="tabs"
-                            fixed-tabs
-                    >
-                        <v-tabs-slider></v-tabs-slider>
-                        <v-tab
-                                href="#mobile-tabs-5-1"
-                                class="primary--text"
-                        >
-                            <v-icon>map</v-icon>
-                        </v-tab>
-
-                        <v-tab
-                                href="#mobile-tabs-5-2"
-                                class="primary--text"
-                        >
-                            <v-icon>mdi-heart</v-icon>
-                        </v-tab>
-
-                        <v-tab
-                                href="#mobile-tabs-5-3"
-                                class="primary--text"
-                        >
-                            <v-icon>info</v-icon>
-                        </v-tab>
-                    </v-tabs>
-                </template>
-            </v-toolbar>
-
-            <v-tabs-items v-model="tabs" v-if="isHidden === false">
-                <v-tab-item
-                        v-for="i in 3"
-                        :key="i"
-                        :value="'mobile-tabs-5-' + i"
-                >
-                    <v-card flat>
-                        <v-card-text v-text="text[i-1]"></v-card-text>
-                    </v-card>
-                </v-tab-item>
-            </v-tabs-items>
-
-
-        </v-card>
-
-        <v-list v-if="isHidden === true">
-            <v-list-group
-                    v-for="item in categories"
-                    :key="item.Name"
-                    :prepend-icon="item.Icon"
-                    no-action
-                    @click = "setCategories"
+        <v-text-field
+            flat
+            solo-inverted
+            hide-details
+            prepend-inner-icon="search"
+            label="Search"
+            class="hidden-sm-and-down"
+            v-model="search"
+            id="search"
+            v-on:click="refreshCategories"
+        ></v-text-field>
+        <v-spacer></v-spacer>
+        <template v-slot:extension>
+          <v-tabs
+              v-model="tabs"
+              fixed-tabs
+          >
+            <v-tabs-slider></v-tabs-slider>
+            <v-tab
+                href="#mobile-tabs-5-1"
+                class="primary--text"
             >
-                <template v-slot:activator>
-                    <v-list-item-content :data-parent="item.Id">
-                        <v-list-item-title v-text="item.Name"></v-list-item-title>
-                    </v-list-item-content>
-                </template>
+              <v-icon>map</v-icon>
+            </v-tab>
+
+            <v-tab
+                href="#mobile-tabs-5-2"
+                class="primary--text"
+            >
+              <v-icon>mdi-heart</v-icon>
+            </v-tab>
+
+            <v-tab
+                href="#mobile-tabs-5-3"
+                class="primary--text"
+            >
+              <v-icon>info</v-icon>
+            </v-tab>
+          </v-tabs>
+        </template>
+      </v-toolbar>
+
+      <v-tabs-items v-model="tabs">
+        <v-tab-item
+            :value="'mobile-tabs-5-1'"
+        >
+          <v-card flat>
+            <v-card-text>
+            </v-card-text>
+            <SVGView :id="id"></SVGView>
+          </v-card>
+          <v-list v-if="isHidden">
+            <v-list-group
+                v-for="item in categories"
+                :key="item.name"
+                :prepend-icon="item.img"
+                no-action
+                @click="setCategories"
+            >
+              <template v-slot:activator>
+                <v-list-item-content :data-parent="item.id">
+                  <v-list-item-title v-text="item.name"></v-list-item-title>
+                </v-list-item-content>
+              </template>
             </v-list-group>
-        </v-list>
-    </v-app>
+          </v-list>
+        </v-tab-item>
+        <v-tab-item
+            :value="'mobile-tabs-5-3'"
+        >
+          <v-card flat>
+            <v-card-text>
+              <h2>{{shop.ShopName}}</h2>
+              <h3>{{shop.ShopAddress}}</h3>
+              <p><strong>{{shop.ShopEmail}}</strong></p>
+              <p><strong>{{shop.ShopPhone}}</strong></p>
+              <p><strong>{{shop.description}}</strong></p>
+            </v-card-text>
+          </v-card>
+        </v-tab-item>
+      </v-tabs-items>
+
+    </v-card>
+
+  </v-app>
 
 </template>
 
 <script>
-    import axios from 'axios';
+    // import axios from 'axios';
+    import {getData} from "../lib/utils/rest-api/api-request";
+    import SVGView from "../components/SVGView"
+
     export default {
         name: 'Shop',
         props: ['id'],
-        data() {
-            return {
-                shop: null,
-                post: null,
-                categories: null,
-                categoriesId: 0,
-                endpoint: '../db.json',
-                isHidden: false,
-                tabs: null,
-                text: ['Здесь будет карта!!!', 'Здесь будут избранные маршруты', 'Здесь будет информация'],
-                search: ''
-            }
-        },
+        components: {SVGView},
+        data: () => ({
+            shop: {ShopName: '', ShopAddress: '', ShopEmail: '', ShopPhone: '', description: ''},
+            post: null,
+            categories: null,
+            categoriesId: 0,
+            endpoint: '/shops/',
+            isHidden: false,
+            tabs: '',
+            text: ['Здесь будет карта!!!', 'Здесь будут избранные маршруты', 'Здесь будет информация'],
+            search: ''
+        }),
         methods: {
-            getPost(id) {
-                axios(this.endpoint)
-                    .then(response => {
-                        console.log("axios");
-                        this.post = response.data;
-                        let shops = this.post.Shops;
-                        this.shop = shops.find(shop => shop.Id === id);
-                        this.categories = this.getCategories();
-                    })
-                    .catch( error => {
-                        console.log('-----errorShop-------');
-                        console.log(error)
-                    })
+            getPost() {
+                getData('/shops/' + this.id).then(res => {
+                    // console.log(res.data);
+                    this.shop = res.data;
+                })
+                // axios(this.endpoint)
+                //     .then(response => {
+                //         console.log("axios");
+                //         this.post = response.data;
+                //         let shops = this.post.Shops;
+                //         this.shop = shops.find(shop => shop.Id === id);
+                //         this.categories = this.getCategories();
+                //     })
+                //     .catch( error => {
+                //         console.log('-----errorShop-------');
+                //         console.log(error)
+                //     })
             },
             setCategories(event) {
                 console.log("setCategories");
 
                 this.categoriesId = event.target.getAttribute("data-parent");
-                this.categories = this.getCategories();
+                // this.categories = this.getCategories();
             },
             getCategories() {
                 console.log("getCategories");
-                let categoriesShops = this.post.Categories;
-                let categoriesFilter = categoriesShops.filter(item => item.ParentId == this.categoriesId);
-                if (categoriesFilter.length === 0) {
-                    this.isHidden = false;
-                    this.refreshCategories();
-                    this.getRoute();
-                } else return categoriesFilter;
+                // let categoriesShops = this.post.Categories;
+                let categoriesShops = '';
+                getData('/maps/' + this.id).then(res => {
+                    // console.log(res.data);
+
+                    this.categories = res.data.filter(x => x.label != '').map(r => {
+                        return {name: r.label};
+                    });
+                });
+                // return categoriesShops;
+                // let categoriesFilter = categoriesShops.filter(item => item.ParentId == this.categoriesId);
+                // if (categoriesFilter.length === 0) {
+                //     this.isHidden = false;
+                //     this.refreshCategories();
+                //     this.getRoute();
+                // } else return categoriesFilter;
             },
             refreshCategories() {
                 console.log("refreshCategories");
@@ -155,7 +179,9 @@
 
         created() {
             console.log("created");
-            this.getPost(this.id);
+            // console.log(this.id);
+            this.getPost();
+            this.getCategories();
         },
 
         watch: {

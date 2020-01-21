@@ -13,10 +13,13 @@ export default new Vuex.Store({
         admin: localStorage.getItem('user-isAdmin') || false,
     },
     getters: {
+        // isAuthenticated: state => true,
         isAuthenticated: state => !!state.token,
         authStatus: state => state.status,
         getErrorMsg: state => state.errorMsg,
+        // isAdmin: state => true,
         isAdmin: state => state.admin,
+        getToken: state => `Bearer ${state.token}`,
     },
     mutations: {
         AUTH_REQUEST: (state) => {
@@ -24,8 +27,11 @@ export default new Vuex.Store({
             state.status = 'loading'
         },
 
-        AUTH_SUCCESS: (state, {token,admin}) => {
-            state.admin = admin;
+        AUTH_SUCCESS: (state, {token, isAdmin}) => {
+            console.log('success');
+            console.log(isAdmin);
+            console.log(token);
+            state.admin = isAdmin;
             state.status = 'success';
             state.token = token;
 
@@ -46,7 +52,7 @@ export default new Vuex.Store({
         },
     },
     actions: {
-        signIn: ({commit, dispatch}, bodyFormData)=>{
+        signIn: ({commit, dispatch, getters}, bodyFormData)=>{
             return  axios({
                     method: 'post',
                     url: '/auth/sign-in',
@@ -63,9 +69,12 @@ export default new Vuex.Store({
                             console.log(data);
                             let token = data.token,
                                 isAdmin = data.admin;
+                            console.log(isAdmin);
+                            console.log(token);
                             localStorage.setItem('user-token', token); // store the token in localstorage
-                            localStorage.setItem('user-isAdmin', isAdmin); // store the token in localstorage
-                            axios.defaults.headers.common['Authorization'] = `Bearer ${{token}}`;
+                            localStorage.setItem('user-isAdmin', isAdmin);
+                            console.log(axios.defaults.headers.common);
+                            axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
                             commit('AUTH_SUCCESS', {token, isAdmin});
                             // this.error = false;
                             // this.$router.push('/').then();

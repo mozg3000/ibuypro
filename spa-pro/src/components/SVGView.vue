@@ -30,6 +30,7 @@
 
     export default {
         name: "SVGView",
+        props: ['id'],
         components: {
             Multiselect
         },
@@ -47,8 +48,9 @@
         }),
         methods: {
             async findPath() {
+                console.log(this.value);
                 if(this.value){
-                    let res = await postData('/find-path/3', {'Categories': this.value.map(x => {
+                    let res = await postData('/find-path/'+this.id, {'Categories': this.value.map(x => {
                             return x.name;
                         })});
                     console.group('Нахождение пути');
@@ -136,10 +138,10 @@
         async mounted() {
             console.group('mounted');
 
-            let res = await getData('/maps/1');
+            let res = await getData('/maps/'+this.id);
             this.racks = res.data;
             this.options = this.racks.filter(x => x.label != '').map(r => {
-                if (r.label != '') return {name: r.label};
+                return {name: r.label};
             });
 
             console.group('Полученные данные');
