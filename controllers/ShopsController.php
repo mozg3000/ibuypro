@@ -7,6 +7,7 @@ namespace app\controllers;
 use app\models\Shops;
 use app\models\ShopsBase;
 use yii\base\InvalidConfigException;
+use yii\filters\auth\HttpBearerAuth;
 use yii\rest\ActiveController;
 use yii\rest\Controller;
 
@@ -180,7 +181,21 @@ class ShopsController extends ActiveController
         \Yii::$app->user->enableSession = false;
         \Yii::$app->user->enableAutoLogin = false;
     }
-
+//    public function behaviors()
+//    {
+//        $behaviors = parent::behaviors();
+//        $behaviors['authenticator']['class'] = HttpBearerAuth::className();
+//        return $behaviors;
+//    }
+//    public function checkAccess($action, $model = null, $params = [])
+//    {
+//        // check if the user can access $action and $model
+//        // throw ForbiddenHttpException if access should be denied
+//
+//        if (!\Yii::$app->rbac->canAdmin()) {
+//            throw new \yii\web\ForbiddenHttpException(sprintf('Only administrators can edit maps.', $action));
+//        }
+//    }
 //    public function actionIndex(string $id)
 //    {
 //

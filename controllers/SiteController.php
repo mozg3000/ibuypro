@@ -6,11 +6,13 @@ use app\lib\ibuypro\Graph;
 use app\lib\ibuypro\IbuyproAlgorithm;
 use Yii;
 use yii\filters\AccessControl;
+use yii\helpers\Json;
 use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\components\RbacComponent;
 
 class SiteController extends Controller
 {
@@ -158,5 +160,12 @@ class SiteController extends Controller
 //        }
 //        exit;
         return $this->render('ibuypro', ['path'=>$path]);
+    }
+
+    public function actionCheck()
+    {
+
+        var_dump(\Yii::$app->user->getIdentity());
+//        var_dump(\Yii::$app->rbac->canAdmin());
     }
 }

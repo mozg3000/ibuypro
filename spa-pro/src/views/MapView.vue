@@ -1,6 +1,6 @@
 <template>
   <div>
-    <SVGComponent></SVGComponent>
+    <SVGComponent :id="id"></SVGComponent>
   </div>
 </template>
 
@@ -8,6 +8,7 @@
   import SVGComponent from "../components/SVGView"
     export default {
         name: "MapView",
+        props: ['id'],
         components: {
             SVGComponent
         }

@@ -11,16 +11,16 @@ module.exports = {
           ws: true,
           changeOrigin: true
       },
-      "/shops*": {
+      "/shops": {
         "target": "http://ibuypro.inshop.online",
           ws: true,
           changeOrigin: true
       },
-      "/shop/:id": {
-        "target": "http://ibuypro.inshop.online",
-          ws: true,
-          changeOrigin: true
-      },
+      // "/shop/:id": {
+      //   "target": "http://ibuypro.inshop.online",
+      //     ws: true,
+      //     changeOrigin: true
+      // },
       "/chain": {
         "target": "http://ibuypro.inshop.online",
           ws: true,

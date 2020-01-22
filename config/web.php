@@ -24,6 +24,7 @@ $config = [
             'class' => DbManager::class
         ],
         'auth' => ['class' => app\components\AuthComponent::class],
+        'rbac' => ['class' => app\components\RbacComponent::class],
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => '_n6lQGZDNHlJgmT4zrXP0znB4iuVaUYL',
@@ -81,8 +82,8 @@ $config = [
                 'category/<id:\d+>' => 'category/index',
                 'racks/<id:\d+>' => 'racks/index',
                 'find-path/<id:\d+>' => 'find-path/index',
+                'POST maps/<id:\d+>' => 'maps/create',
                 'maps/<id:\d+>' => 'maps/index',
-                'maps' => 'maps/create',
 
             ],
         ],

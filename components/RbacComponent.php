@@ -23,6 +23,7 @@ class RbacComponent
 
         foreach (\Yii::$app->authManager->getAssignments(\Yii::$app->user->getIdentity()->id) as $index => $assignment) {
 
+//            var_dump($assignment);
             if ($assignment->roleName === 'admin') {
 
                 return true;
