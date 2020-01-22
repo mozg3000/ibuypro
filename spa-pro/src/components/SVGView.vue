@@ -7,10 +7,11 @@
       Найти путь
     </button>
     <!--    <p>Выберите категории для поиска</p>-->
-    <label class="typo__label">Выберите категории для поиска пути обхода</label>
+    <label class="typo__label">Выберите категории для поиска пути обхода ниже:</label>
     <multiselect v-model="value" :options="options" :multiple="true" :close-on-select="false" :clear-on-select="false"
                  :preserve-search="true" placeholder="Начните вводить название категории" label="name" track-by="name"
-                 :preselect-first="true">
+                 :preselect-first="true"
+                  class="sct_categories">
       <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single"
                                                                                v-if="values.length &amp;&amp; !isOpen"> Вы выбрали: {{ values.map(x=>x.name) }} </span>
       </template>
@@ -165,4 +166,11 @@
     height: 22px
     background-color: forestgreen
     border: 1px solid black
+  .typo__label
+    color: #880000
+    margin-top: 33px
+  .sct_categories
+    border: #00BFFF 1px solid
+    color: forestgreen
+    padding: 7px
 </style>

@@ -11,6 +11,7 @@ export default new Vuex.Store({
         status: '',
         errorMsg: '',
         admin: localStorage.getItem('user-isAdmin') || false,
+        username: localStorage.getItem('user-username') || '',
     },
     getters: {
         // isAuthenticated: state => true,
@@ -20,6 +21,7 @@ export default new Vuex.Store({
         // isAdmin: state => true,
         isAdmin: state => state.admin,
         getToken: state => `Bearer ${state.token}`,
+        getUsername: state => state.username,
     },
     mutations: {
         AUTH_REQUEST: (state) => {
@@ -27,13 +29,15 @@ export default new Vuex.Store({
             state.status = 'loading'
         },
 
-        AUTH_SUCCESS: (state, {token, isAdmin}) => {
-            console.log('success');
-            console.log(isAdmin);
-            console.log(token);
+        AUTH_SUCCESS: (state, {token, isAdmin, username}) => {
+            // console.log('success');
+            // console.log(isAdmin);
+            // console.log(token);
+            console.log(username);
             state.admin = isAdmin;
             state.status = 'success';
             state.token = token;
+            state.token = username;
 
         },
 
@@ -41,18 +45,21 @@ export default new Vuex.Store({
 
             state.status = 'error';
             state.errorMsg = msg;
+            state.token = '';
 
         },
 
         LOGOUT: (state) => {
 
             state.status = '';
-            state.token = ''
+            state.token = '';
+            state.username = '';
 
         },
     },
     actions: {
         signIn: ({commit, dispatch, getters}, bodyFormData)=>{
+            console.log(bodyFormData.get('Users[username]'));
             return  axios({
                     method: 'post',
                     url: '/auth/sign-in',
@@ -66,16 +73,18 @@ export default new Vuex.Store({
                         let data = JSON.parse(response.data);
                         console.log(data.status);
                         if(data.status === 'OK'){
-                            console.log(data);
+                            // console.log(data);
                             let token = data.token,
-                                isAdmin = data.admin;
-                            console.log(isAdmin);
-                            console.log(token);
+                                isAdmin = data.admin,
+                                username = bodyFormData.get('Users[username]');
+                            // console.log(isAdmin);
+                            // console.log(token);
                             localStorage.setItem('user-token', token); // store the token in localstorage
                             localStorage.setItem('user-isAdmin', isAdmin);
+                            localStorage.setItem('user-username', username);
                             console.log(axios.defaults.headers.common);
                             axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-                            commit('AUTH_SUCCESS', {token, isAdmin});
+                            commit('AUTH_SUCCESS', {token, isAdmin, username});
                             // this.error = false;
                             // this.$router.push('/').then();
 
@@ -86,6 +95,7 @@ export default new Vuex.Store({
                             commit('AUTH_ERROR', msg);
                             localStorage.removeItem('user-token'); // if the request fails, remove any possible user token if possible
                             localStorage.removeItem('user-isAdmin');
+                            localStorage.removeItem('user-username');
                         }
                     }
                 }).catch(e =>{
@@ -97,6 +107,7 @@ export default new Vuex.Store({
                 commit('LOGOUT');
                 localStorage.removeItem('user-token');
                 localStorage.removeItem('user-isAdmin');
+                localStorage.removeItem('user-username');
                 // remove the axios default header;
                 delete axios.defaults.headers.common['Authorization'];
                 resolve()

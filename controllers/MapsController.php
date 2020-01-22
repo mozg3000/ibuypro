@@ -5,17 +5,20 @@ namespace app\controllers;
 
 
 use app\controllers\actions\maps\IndexAction;
+use app\controllers\authenticators\MapsAuthenticator;
 use app\models\Map;
 use yii\base\InvalidConfigException;
 use yii\filters\auth\HttpBearerAuth;
 use yii\rest\ActiveController;
 use yii\rest\Controller;
+use yii\web\BadRequestHttpException;
 
 class MapsController extends ActiveController
 {
     public $modelClass = Map::class;
 
-    public function init() {
+    public function init()
+    {
         try {
             parent::init();
         } catch (InvalidConfigException $e) {
@@ -24,13 +27,19 @@ class MapsController extends ActiveController
         \Yii::$app->user->enableAutoLogin = false;
 
     }
+
     public function behaviors()
     {
         $behaviors = parent::behaviors();
-        $behaviors['authenticator']['class'] = HttpBearerAuth::className();
+        $behaviors['authenticator']['class'] = MapsAuthenticator::className();
         return $behaviors;
     }
-//    /
+
+//    public function beforeAction($action)
+//    {
+//        return $action;
+//    }
+
     public function actions()
     {
         return [
