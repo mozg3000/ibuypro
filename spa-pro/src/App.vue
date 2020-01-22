@@ -62,7 +62,7 @@
           <v-list-item
               v-else
               :key="item.text"
-              @click=""
+              :to="item.url"
           >
             <v-list-item-action>
               <v-icon>{{ item.icon }}</v-icon>
@@ -74,6 +74,21 @@
             </v-list-item-content>
           </v-list-item>
         </template>
+            <div v-if="$store.getters.isAuthenticated">
+              <div class="pa-2">
+              <v-btn block @click.prevent="logout"><v-icon left>lock</v-icon>Logout</v-btn>
+              </div>
+            </div>
+            <div v-else>
+              <div class="pa-2">
+              <v-btn block @click.prevent="signIn"><v-icon left>lock_open</v-icon>Login</v-btn>
+              </div>
+              <div class="pa-2">
+              <v-btn block @click.prevent="signUp"><v-icon left>assignment_ind</v-icon>Signup</v-btn>
+              </div>
+            </div>
+
+
       </v-list>
     </v-navigation-drawer>
     <v-app-bar
@@ -88,8 +103,10 @@
       >
         <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
         <router-link :to="{ name: 'home'}">
-          <span class="hidden-sm-and-down display-1 font-weight-black red--text">IBuypro</span>
-        </router-link>
+          <span class="hidden-sm-and-down display-1 font-weight-black red--text">
+            IBuypro
+          </span>
+      </router-link>
       </v-toolbar-title>
       <v-text-field
           flat
@@ -100,14 +117,14 @@
           class="hidden-sm-and-down"
       ></v-text-field>
       <v-spacer></v-spacer>
-      <div v-if="$store.getters.isAuthenticated">
-        <a @click.prevent="logout" class="display-1 white--text" >Logout {{username}}</a>
+<!--      <div v-if="$store.getters.isAuthenticated">-->
+<!--        <a @click.prevent="logout" class="display-1 white&#45;&#45;text" >Logout {{username}}</a>-->
 
-      </div>
-      <div v-else>
-        <router-link :to="{name: 'signin'}" class="display-1 white--text" >Login</router-link>/
-        <router-link :to="{name: 'signup'}" class="display-1 white--text" >Signup</router-link>
-      </div>
+<!--      </div>-->
+<!--      <div v-else>-->
+<!--        <router-link :to="{name: 'signin'}" class="display-1 white&#45;&#45;text" >Login</router-link>/-->
+<!--        <router-link :to="{name: 'signup'}" class="display-1 white&#45;&#45;text" >Signup</router-link>-->
+<!--      </div>-->
       <v-spacer></v-spacer>
 
       <v-btn
@@ -128,28 +145,6 @@
       </v-btn>
     </v-app-bar>
     <v-content>
-      <div class="info">
-        <br>
-        <p>Пользователи: <br>
-              Гость и user/12345678 - чтение,<br>
-              admin/12345678 - редактирование<br></p>
-        <!--      <router-link :to="{ name: 'mapdraw'}">-->
-        <!--        Здесь конструктор карт-->
-        <!--      </router-link>-->
-        <!--      <br>-->
-        <!--      <router-link :to="{name:'mapview', params:{id:1}}">-->
-        <!--        Здесь просматриватель карт карт-->
-        <!--      </router-link>-->
-        <br>
-<!--        <router-link :to="{ name: 'signin'}" class="info">-->
-<!--          Здесь Авторизация-->
-<!--        </router-link>-->
-<!--        <br>-->
-<!--        <br>-->
-<!--        <router-link :to="{ name: 'signup'}" class="info">-->
-<!--          Здесь Регистрация-->
-<!--        </router-link>-->
-      </div>
 
       <v-container
           fluid
@@ -369,36 +364,46 @@
             drawer: null,
             source: '/',
             items: [
-                {icon: 'contacts', text: 'Contactsaaaaa'},
-                {icon: 'history', text: 'Frequently contacted'},
-                {icon: 'content_copy', text: 'Duplicates'},
+                {icon: 'home', text: 'Главная', url: {name: 'home'}},
+                {icon: 'shop', text: 'Магазины', url: {name: 'shops'}},
                 {
-                    icon: 'keyboard_arrow_up',
+                    icon: 'person',
+                    text: 'Профиль',
                     'icon-alt': 'keyboard_arrow_down',
-                    text: 'Labels',
-                    model: true,
+                    model: false,
                     children: [
                         {icon: 'add', text: 'Create label'},
                     ],
                 },
-                {
-                    icon: 'keyboard_arrow_up',
-                    'icon-alt': 'keyboard_arrow_down',
-                    text: 'More',
-                    model: false,
-                    children: [
-                        {text: 'Import'},
-                        {text: 'Export'},
-                        {text: 'Print'},
-                        {text: 'Undo changes'},
-                        {text: 'Other contacts'},
-                    ],
-                },
-                {icon: 'settings', text: 'Settings'},
-                {icon: 'chat_bubble', text: 'Send feedback'},
-                {icon: 'help', text: 'Help'},
-                {icon: 'phonelink', text: 'App downloads'},
-                {icon: 'keyboard', text: 'Go to the old version'}
+                // {icon: 'history', text: 'Frequently contacted'},
+                // {icon: 'content_copy', text: 'Duplicates'},
+                // {
+                //     icon: 'keyboard_arrow_up',
+                //     'icon-alt': 'keyboard_arrow_down',
+                //     text: 'Labels',
+                //     model: true,
+                //     children: [
+                //         {icon: 'add', text: 'Create label'},
+                //     ],
+                // },
+                // {
+                //     icon: 'keyboard_arrow_up',
+                //     'icon-alt': 'keyboard_arrow_down',
+                //     text: 'More',
+                //     model: false,
+                //     children: [
+                //         {text: 'Import'},
+                //         {text: 'Export'},
+                //         {text: 'Print'},
+                //         {text: 'Undo changes'},
+                //         {text: 'Other contacts'},
+                //     ],
+                // },
+                // {icon: 'settings', text: 'Settings'},
+                // {icon: 'chat_bubble', text: 'Send feedback'},
+                // {icon: 'help', text: 'Help'},
+                // {icon: 'phonelink', text: 'App downloads'},
+                // {icon: 'keyboard', text: 'Go to the old version'}
             ],
 
         }),
@@ -422,13 +427,22 @@
             authorization() {
                 console.log("authorization");
             },
+            signIn(){
+                this.$router.push({name: 'signin'})
+            },
+            signUp(){
+                this.$router.push({name: 'signup'})
+            }
 
         },
         computed: {
             username(){
-                console.log( this.$store.getters.getUsername);
+                // console.log( this.$store.getters.getUsername);
                 return this.$store.getters.getUsername;
             }
+        },
+        mounted() {
+
         }
 
     };
