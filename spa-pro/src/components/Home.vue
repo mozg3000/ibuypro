@@ -1,5 +1,5 @@
 <template>
-    <v-app id="inspire">
+<!--    <v-app id="inspire">-->
         <v-card
                 class="mx-auto"
                 max-width="500"
@@ -56,7 +56,7 @@
               </router-link>
             </v-container>
         </v-card>
-    </v-app>
+<!--    </v-app>-->
 </template>
 
 <script>

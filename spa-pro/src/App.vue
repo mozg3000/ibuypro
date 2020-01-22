@@ -88,7 +88,7 @@
       >
         <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
         <router-link :to="{ name: 'home'}">
-          <span class="hidden-sm-and-down">Какой-то логотип</span>
+          <span class="hidden-sm-and-down display-1 font-weight-black red--text">IBuypro</span>
         </router-link>
       </v-toolbar-title>
       <v-text-field
@@ -101,7 +101,12 @@
       ></v-text-field>
       <v-spacer></v-spacer>
       <div v-if="$store.getters.isAuthenticated">
-        <a @click.prevent="logout" class="black" >Logout</a>
+        <a @click.prevent="logout" class="display-1 white--text" >Logout {{username}}</a>
+
+      </div>
+      <div v-else>
+        <router-link :to="{name: 'signin'}" class="display-1 white--text" >Login</router-link>/
+        <router-link :to="{name: 'signup'}" class="display-1 white--text" >Signup</router-link>
       </div>
       <v-spacer></v-spacer>
 
@@ -125,7 +130,9 @@
     <v-content>
       <div class="info">
         <br>
-        <p>Пользователи: user/12345678, admin/12345678</p>
+        <p>Пользователи: <br>
+              Гость и user/12345678 - чтение,<br>
+              admin/12345678 - редактирование<br></p>
         <!--      <router-link :to="{ name: 'mapdraw'}">-->
         <!--        Здесь конструктор карт-->
         <!--      </router-link>-->
@@ -134,14 +141,14 @@
         <!--        Здесь просматриватель карт карт-->
         <!--      </router-link>-->
         <br>
-        <router-link :to="{ name: 'signin'}" class="info">
-          Здесь Авторизация
-        </router-link>
-        <br>
-        <br>
-        <router-link :to="{ name: 'signup'}" class="info">
-          Здесь Регистрация
-        </router-link>
+<!--        <router-link :to="{ name: 'signin'}" class="info">-->
+<!--          Здесь Авторизация-->
+<!--        </router-link>-->
+<!--        <br>-->
+<!--        <br>-->
+<!--        <router-link :to="{ name: 'signup'}" class="info">-->
+<!--          Здесь Регистрация-->
+<!--        </router-link>-->
       </div>
 
       <v-container
@@ -414,6 +421,13 @@
 
             authorization() {
                 console.log("authorization");
+            },
+
+        },
+        computed: {
+            username(){
+                console.log( this.$store.getters.getUsername);
+                return this.$store.getters.getUsername;
             }
         }
 

@@ -59,20 +59,20 @@
             </v-card-text>
             <SVGView :id="id"></SVGView>
           </v-card>
-          <v-list >
-            <v-list-group
-                v-for="item in categories"
-                :key="item.name"
-                :prepend-icon="item.img"
-                no-action
-            >
-              <template v-slot:activator>
-                <v-list-item-content :data-parent="item.id">
-                  <v-list-item-title v-text="item.name"></v-list-item-title>
-                </v-list-item-content>
-              </template>
-            </v-list-group>
-          </v-list>
+<!--          <v-list >-->
+<!--            <v-list-group-->
+<!--                v-for="item in categories"-->
+<!--                :key="item.name"-->
+<!--                :prepend-icon="item.img"-->
+<!--                no-action-->
+<!--            >-->
+<!--              <template v-slot:activator>-->
+<!--                <v-list-item-content :data-parent="item.id">-->
+<!--                  <v-list-item-title v-text="item.name"></v-list-item-title>-->
+<!--                </v-list-item-content>-->
+<!--              </template>-->
+<!--            </v-list-group>-->
+<!--          </v-list>-->
         </v-tab-item>
         <v-tab-item
             :value="'mobile-tabs-5-3'"
