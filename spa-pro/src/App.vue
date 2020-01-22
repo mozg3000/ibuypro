@@ -367,9 +367,9 @@
                 {icon: 'home', text: 'Главная', url: {name: 'home'}},
                 {icon: 'shop', text: 'Магазины', url: {name: 'shops'}},
                 {
-                    icon: 'person',
+                    icon: 'keyboard_arrow_up',
                     text: 'Профиль',
-                    'icon-alt': 'keyboard_arrow_down',
+                    'icon-alt': 'person',
                     model: false,
                     children: [
                         {icon: 'add', text: 'Create label'},
