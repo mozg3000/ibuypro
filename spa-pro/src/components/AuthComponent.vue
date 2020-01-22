@@ -99,36 +99,53 @@
         }),
         methods:{
             signIn(){
+                console.group('Авторизация');
+                console.log(this.$refs.form.validate());
                 if (this.$refs.form.validate()) {
 
                     let bodyFormData = new FormData();
                     bodyFormData.set('Users[username]', this.username);
                     bodyFormData.set('Users[password]', this.password);
 
-                    axios({
-                        method: 'post',
-                        url: '/auth/sign-in',
-                        data: bodyFormData,
-                        headers: {'Content-Type': 'multipart/form-data' }
-                    // }).then(response => console.log(response.data))
-                    }).then(response => {
-                        // console.log(response);
-                        if (response.data !== ''){
-                            // let data = response.data;
-                            let data = JSON.parse(response.data);
-                            // console.log(data.status);
-                            if(data.status === 'OK'){
-                                // console.log(data.token);
-                                this.error = false;
-                            }else if(data.status === 'deny'){
-                                // console.log(data.msg);
-                                this.msg = data.msg;
-                                this.error = true;
-                            }
+                    this.$store.dispatch('signIn', bodyFormData)
+                        .then(()=>{
+                        // console.log(this.$store.getters.authStatus);
+                        if(this.$store.getters.authStatus === 'success'){
+                            this.error = false;
+                            this.$router.push('/')
+                        }else if(this.$store.getters.authStatus === 'error'){
+                            this.error = true;
+                            this.msg = this.$store.getters.getErrorMsg;
+                            // console.log(this)
                         }
-                    }).catch(e =>{
-                           console.log(e.message);
-                    });
+                        })
+                        .catch();
+                    // axios({
+                    //     method: 'post',
+                    //     url: '/auth/sign-in',
+                    //     data: bodyFormData,
+                    //     headers: {'Content-Type': 'multipart/form-data' }
+                    // // }).then(response => console.log(response.data))
+                    // }).then(response => {
+                    //     console.log(response);
+                    //     if (response.data !== ''){
+                    //         // let data = response.data;
+                    //         let data = JSON.parse(response.data);
+                    //         console.log(data.status);
+                    //         if(data.status === 'OK'){
+                    //             console.log(data);
+                    //             this.error = false;
+                    //             this.$router.push('/');
+                    //         }else if(data.status === 'deny'){
+                    //             console.log(data.msg);
+                    //             this.msg = data.msg;
+                    //             this.error = true;
+                    //         }
+                    //     }
+                    // }).catch(e =>{
+                    //        console.log(e.message);
+                    // });
+                    console.groupEnd();
                 }
             },
 
@@ -138,5 +155,4 @@
 <style scoped lang="sass">
     .error-p
         color: red
-
 </style>

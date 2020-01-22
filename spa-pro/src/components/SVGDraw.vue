@@ -1,5 +1,8 @@
 <template>
+
   <div id="c-container">
+    <p>{{value}}</p>
+<!--    <multiselect v-model="value" :options="options" :placeholder="'Выбран магазин '+ placeholder"></multiselect>-->
     <div id="svg-container"></div>
     <div id="svg-controls">
       <button id="addRectH" @click.prevent.stop="addRectHHandler">
@@ -41,17 +44,26 @@
     import {moveRect} from '../lib/utils/draw-svg/elementMoveEventAssistent';
     import mapInit from "../lib/utils/draw-svg/mapInit";
     import {buildTails} from "../lib/utils/tails";
-    import {postData} from "../lib/utils/rest-api/api-request";
+    import {getData, postData, putData} from "../lib/utils/rest-api/api-request";
+    import Multiselect from 'vue-multiselect'
 
     export default {
         name: "SVGComponent",
-        props: {},
+        components: {Multiselect},
+        props: ['id'],
         data: () => ({
             graph: '',
             paper: '',
             rectTemplate: '',
-            isLinking: false
+            isLinking: false,
+            value: '',
+            // options: []
         }),
+      computed: {
+        // placeholder(){
+        //   return this.value ? this.value :' - нет'
+        // }
+      },
         methods: {
             buildTails() {
                 let map = new Map(this.graph);
@@ -96,12 +108,17 @@
                 moveRect(this.rectTemplate, attrs, -90, this.graph, this.paper, {x: -189, y: -99}, {x: 90, y: 99});
             },
             async saveMap(e) {
+                console.log(this.graph.toJSON());
+                let g = await putData('/shops/'+this.id, {"map": JSON.stringify(this.graph.toJSON())});
+                console.log(g);
                 let map = new Map(this.graph);
                 console.log(map);
-                let res = await postData('/racks/1', map.racks);
+                // let res = await postData('/maps', JSON.stringify(map));
+                let res = await postData('/maps/'+this.id, {"Racks": map.racks, "Links": map.links});
                 console.group('ответ от сервера после сохранения');
                 console.log(res);
-                console.groupEnd()
+                console.groupEnd();
+                await this.$router.push({name: 'shop', params:{id:this.id}});
             },
             addStartPoint(e) {
                 let startPoint = this.rectTemplate.clone();
@@ -228,15 +245,41 @@
 
             },
         },
-        mounted() {
+        async mounted() {
 
             let {graph, paper, rectTemplate} = mapInit(this.graph, this.paper, this.rectTemplate);
 
-            this.graph = graph;
+            if (this.id){
+                let res = await getData('/shops/'+this.id);
+                console.log(res);
+                this.value = res.data.ShopName + ' - ' + res.data.ShopAddress;
+                // this.options.push(this.value);
+                    console.log(res.data.map);
+                    if(res.data.map){
+                        this.graph = graph.fromJSON(JSON.parse(res.data.map));
+                        // console.log(paper);
+                        // console.log(this.graph.getCells()[0].findView(paper));
+                        this.graph.getCells().forEach(cell=>{
+                            // Add remove button to the link.
+                            let tools = new joint.dia.ToolsView({
+                                tools: [new joint.linkTools.Remove()]
+                            });
+                            cell.findView(paper).addTools(tools);
+                        })
+                    }else{
+                        this.graph = graph;
+                    }
+
+            }else{
+                this.graph = graph;
+            }
+
+            // this.graph = graph;
             this.paper = paper;
             this.rectTemplate = rectTemplate;
         }
     }
+
 </script>
 
 <style scoped lang="sass">

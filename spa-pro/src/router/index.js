@@ -1,13 +1,32 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../components/Home.vue'
+import Home from '../views/Home.vue'
 import Shop from '../components/Shop.vue'
+import Shops from '../components/Shops.vue'
 import ShopAdd from '../components/ShopAdd.vue'
 import Map from "../views/Map";
 import MapView from "../views/MapView";
 import AuthComponent from "../components/AuthComponent";
+import RegistrationComponent from "../components/RegistrationComponent";
+import store from '../store/index'
 
 Vue.use(VueRouter);
+
+const ifNotAuthenticated = (to, from, next) => {
+    if (!store.getters.isAuthenticated) {
+        next();
+        return;
+    }
+    next('/');
+};
+
+const ifAuthenticated = (to, from, next) => {
+    if (store.getters.isAuthenticated && store.getters.isAdmin) {
+        next();
+        return
+    }
+    next('/sign-in');
+};
 
 const routes = [
     {
@@ -16,30 +35,49 @@ const routes = [
         component: Home
     },
     {
-        path: '/shop/:id',
+        path: '/shop',
         name:'shop',
         component: Shop,
         props: true
     },
     {
+        path: '/chains',
+        name:'shops',
+        component: Shops,
+        props: true
+    },
+    {
         path: '/shop-add',
         name:'shopAdd',
-        component: ShopAdd
+        component: ShopAdd,
+        props: true,
+        beforeEnter: ifAuthenticated
     },
     {
         path: '/map/draw',
         name:'mapdraw',
-        component: Map
+        component: Map,
+        beforeEnter: ifAuthenticated,
+        props: true
     },
     {
-        path: '/map/view',
+        path: '/map/view/:id',
         name:'mapview',
-        component: MapView
+        component: MapView,
+        props: true
+
     },
     {
         path: '/sign-in',
         name:'signin',
-        component: AuthComponent
+        component: AuthComponent,
+        beforeEnter: ifNotAuthenticated,
+    },
+    {
+        path: '/sign-up',
+        name:'signup',
+        component: RegistrationComponent,
+        beforeEnter: ifNotAuthenticated,
     }
 ]
 

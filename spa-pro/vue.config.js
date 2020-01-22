@@ -11,16 +11,16 @@ module.exports = {
           ws: true,
           changeOrigin: true
       },
-      "/shops/:id": {
+      "/shops": {
         "target": "http://ibuypro.inshop.online",
           ws: true,
           changeOrigin: true
       },
-      "/shop/:id": {
-        "target": "http://ibuypro.inshop.online",
-          ws: true,
-          changeOrigin: true
-      },
+      // "/shop/:id": {
+      //   "target": "http://ibuypro.inshop.online",
+      //     ws: true,
+      //     changeOrigin: true
+      // },
       "/chain": {
         "target": "http://ibuypro.inshop.online",
           ws: true,
@@ -53,6 +53,11 @@ module.exports = {
       },
       "/find-path*": {
         "target": "http://ibuypro.inshop.online",
+          ws: true,
+          changeOrigin: true
+      },
+      "/maps": {
+        "target": "http://ibuypro.inshop.online/",
           ws: true,
           changeOrigin: true
       }

@@ -2,6 +2,7 @@
 
 use app\components\AuthComponent;
 use yii\rbac\DbManager;
+use yii\rest\UrlRule;
 use yii\web\JsonParser;
 
 $params = require __DIR__ . '/params.php';
@@ -23,6 +24,7 @@ $config = [
             'class' => DbManager::class
         ],
         'auth' => ['class' => app\components\AuthComponent::class],
+        'rbac' => ['class' => app\components\RbacComponent::class],
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => '_n6lQGZDNHlJgmT4zrXP0znB4iuVaUYL',
@@ -47,6 +49,7 @@ $config = [
             // for the mailer to send real emails.
             'useFileTransport' => true,
         ],
+
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [
@@ -61,12 +64,27 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                ['class'=>UrlRule::class,
+                    'controller' => 'shops',
+//                    'pluralize' => false
+                ],
+                ['class'=>UrlRule::class,
+                    'controller' => 'racks',
+//                    'pluralize' => false
+                ],
+                ['class'=>UrlRule::class,
+                    'controller' => 'connections',
+//                    'pluralize' => false
+                ],
                 'shops/<id:\d+>' => 'shops/index',
                 'shop/<id:\d+>' => 'shop/index',
                 'categories/<id:\d+>' => 'categories/index',
                 'category/<id:\d+>' => 'category/index',
                 'racks/<id:\d+>' => 'racks/index',
-                'find-path/<id:\d+>' => 'find-path/index'
+                'find-path/<id:\d+>' => 'find-path/index',
+                'POST maps/<id:\d+>' => 'maps/create',
+                'maps/<id:\d+>' => 'maps/index',
+
             ],
         ],
     ],

@@ -4,7 +4,7 @@
 namespace app\controllers;
 
 
-use app\models\Shop;
+use app\models\Shops;
 use app\models\ShopChain;
 use yii\rest\Controller;
 

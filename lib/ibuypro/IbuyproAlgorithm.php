@@ -49,9 +49,10 @@ class IbuyproAlgorithm
             $subPath = $this->graph->findPathToClosestTop($curTop, $restPathTops);
 
             $curTop = end($subPath);
-            array_pop($subPath);
-            array_shift($subPath);
-            $path[$curTop] = $subPath;
+//            array_pop($subPath);
+//            array_shift($subPath);
+//            $path[$curTop] = $subPath;
+            array_push($path, $subPath);
 
             $key = array_search($curTop, $restPathTops);
 //            var_dump('$KEY ibuyproalgoriphm findPath()', $key);

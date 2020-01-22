@@ -40,17 +40,17 @@ class FindPath extends Model
     {
         $this->graph = $this->buildGraph($this->links);
         $this->startTopNumber =array_values(array_filter($this->racks, function ($el){
-            return $el['label'] === 'Старт';
-        }))[0]['top'];
-
+            return $el->label === 'Старт';
+        }))[0]->top;
+//        return var_dump($this->startTopNumber);
 //        array_push($this->pathTops, $this->startTopNumber);
         foreach ($this->racks as $rack){
-          if(in_array($rack['label'], $this->categories2Find)){
-              array_push($this->pathTops, $rack['top']);
+          if(in_array($rack->label, $this->categories2Find)){
+              array_push($this->pathTops, $rack->top);
           }
         }
 //        var_dump($this->graph);
-        var_dump($this->pathTops);
+//        var_dump($this->pathTops);
 
         $solve = new IbuyproAlgorithm($this->graph, $this->startTopNumber, $this->pathTops);
         return $solve->findPath();
@@ -62,23 +62,23 @@ class FindPath extends Model
 
         foreach ($links as $link){
 
-//            var_dump('from',$link["from"]);
-//            var_dump('to',$link["to"]);
+//            var_dump('firstN',$link);exit;
+//            var_dump('secondN',$link->secondN);
 
-            if(!array_key_exists((string)$link["from"], $input)){
+            if(!array_key_exists((string)$link->firstN, $input)){
 
-                $input[$link["from"]] = [[$link['to'], 50]];
+                $input[$link->firstN] = [[$link->secondN, 50]];
             }else{
 
-                array_push($input[$link["from"]], [$link['to'], 50]);
+                array_push($input[$link->firstN], [$link->secondN, 50]);
             }
 
-            if(!array_key_exists((string)$link['to'], $input)){
+            if(!array_key_exists((string)$link->secondN, $input)){
 
-                $input[$link["to"]] =  [[$link["from"], 50]];
+                $input[$link->secondN] =  [[$link->firstN, 50]];
             }else{
 
-                array_push($input[$link['to']], [$link["from"],50]);
+                array_push($input[$link->secondN], [$link->firstN,50]);
             }
         }
 //        var_dump($input);
