@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../components/Home.vue'
+import Home from '../views/Home.vue'
 import Shop from '../components/Shop.vue'
+import Shops from '../components/Shops.vue'
 import ShopAdd from '../components/ShopAdd.vue'
 import Map from "../views/Map";
 import MapView from "../views/MapView";
@@ -40,10 +41,17 @@ const routes = [
         props: true
     },
     {
+        path: '/chains',
+        name:'shops',
+        component: Shops,
+        props: true
+    },
+    {
         path: '/shop-add',
         name:'shopAdd',
         component: ShopAdd,
-        props: true
+        props: true,
+        beforeEnter: ifAuthenticated
     },
     {
         path: '/map/draw',
