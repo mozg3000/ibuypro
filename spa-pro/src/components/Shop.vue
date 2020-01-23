@@ -1,25 +1,25 @@
 <template lang="html">
   <v-app id="inspire">
     <v-card>
-      <v-toolbar flat>
+<!--      <v-toolbar flat>-->
 
-        <v-app-bar-nav-icon v-on:click="refreshCategories(); setHidden();"></v-app-bar-nav-icon>
+<!--        <v-app-bar-nav-icon v-on:click="refreshCategories(); setHidden();"></v-app-bar-nav-icon>-->
 
-        <v-text-field
-            flat
-            solo-inverted
-            hide-details
-            prepend-inner-icon="search"
-            label="Search"
-            class="hidden-sm-and-down"
-            v-model="search"
-            id="search"
-            @change="refreshCategories"
-        ></v-text-field>
-        <v-spacer></v-spacer>
+<!--        <v-text-field-->
+<!--            flat-->
+<!--            solo-inverted-->
+<!--            hide-details-->
+<!--            prepend-inner-icon="search"-->
+<!--            label="Search"-->
+<!--            class="hidden-sm-and-down"-->
+<!--            v-model="search"-->
+<!--            id="search"-->
+<!--            @change="refreshCategories"-->
+<!--        ></v-text-field>-->
+<!--        <v-spacer></v-spacer>-->
 
-        <v-spacer></v-spacer>
-        <template v-slot:extension>
+<!--        <v-spacer></v-spacer>-->
+<!--        <template v-slot:extension>-->
           <v-tabs
               v-model="tabs"
               fixed-tabs
@@ -32,12 +32,12 @@
               <v-icon>map</v-icon>
             </v-tab>
 
-            <v-tab
-                href="#mobile-tabs-5-2"
-                class="primary--text"
-            >
-              <v-icon>mdi-heart</v-icon>
-            </v-tab>
+<!--            <v-tab-->
+<!--                href="#mobile-tabs-5-2"-->
+<!--                class="primary&#45;&#45;text"-->
+<!--            >-->
+<!--              <v-icon>mdi-heart</v-icon>-->
+<!--            </v-tab>-->
 
             <v-tab
                 href="#mobile-tabs-5-3"
@@ -46,17 +46,20 @@
               <v-icon>info</v-icon>
             </v-tab>
           </v-tabs>
-        </template>
-      </v-toolbar>
+<!--        </template>-->
+<!--      </v-toolbar>-->
 
       <v-tabs-items v-model="tabs">
         <v-tab-item
             :value="'mobile-tabs-5-1'"
         >
           <v-card flat>
-            <v-card-text>
-              <router-link :to="{name: 'mapdraw', params:{id: id}}">Нарисовать\редактировать карту</router-link>
-            </v-card-text>
+
+              <router-link
+                  :to="{name: 'mapdraw', params:{id: id}}"
+                  v-if = "$store.getters.isAdmin"
+              >Нарисовать\редактировать карту</router-link>
+
             <SVGView :id="id"></SVGView>
           </v-card>
 <!--          <v-list >-->
@@ -78,7 +81,10 @@
             :value="'mobile-tabs-5-3'"
         >
           <v-card flat>
-            <router-link :to="{name: 'shopAdd', params:{shop:shop}}">редактировать данные</router-link>
+            <router-link
+                :to="{name: 'shopAdd', params:{shop:shop}}"
+                v-if="$store.getters.isAdmin"
+            >редактировать данные</router-link>
             <v-card-text>
               <h2>{{shop.ShopName}}</h2>
               <h3>{{shop.ShopAddress}}</h3>
