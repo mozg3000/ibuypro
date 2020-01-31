@@ -1,21 +1,30 @@
 <template>
-  <div>
-    <div class="cv-container">
+  <div class="d-flex  align-center flex-column">
+    <div class="cv-container ma-5">
 
     </div>
-    <button id="find_btn" @click.prevent="findPath">
-      Найти путь
-    </button>
+
+<!--    <button id="find_btn" @click.prevent="findPath">-->
+<!--      Найти путь-->
+<!--    </button>-->
     <!--    <p>Выберите категории для поиска</p>-->
     <label class="typo__label">Выберите категории для поиска пути обхода ниже:</label>
     <multiselect v-model="value" :options="options" :multiple="true" :close-on-select="false" :clear-on-select="false"
                  :preserve-search="true" placeholder="Начните вводить название категории" label="name" track-by="name"
                  :preselect-first="true"
-                  class="sct_categories">
-      <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single"
+                  class="sct_categories"
+                 style="min-width: 500px; margin:17px"
+                  >
+      <template
+                slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single"
                                                                                v-if="values.length &amp;&amp; !isOpen"> Вы выбрали: {{ values.map(x=>x.name) }} </span>
       </template>
     </multiselect>
+    <v-btn large color="primary"
+                         id="find_btn" @click.prevent="findPath"
+                         max-width="200"
+                         min-height="30"
+  > Найти путь</v-btn>
   </div>
 </template>
 
@@ -107,21 +116,21 @@
 
                         switch (switch_case) {
                             case '1': {
-                                this.draw.line(x1 + 2 * w1, y1 + h1, x2 + 2 * w2, y2 + h2).stroke({
+                                this.draw.line(x1+w1*0.2 / 2, y1+ h1*0.2 / 2, x2 +w2*0.2 / 2, y2+ h2*0.2 / 2).stroke({
                                     width: 3,
                                     color: 'black'
                                 });
                                 break;
                             }
                             case '2': {
-                                this.draw.line(x1 + 2 * w1, y1 + h1, x2 + w2 / 2, y2 + h2 / 2).stroke({
+                                this.draw.line(x1 , y1, x2 + w2 / 2, y2 + h2 / 2).stroke({
                                     width: 3,
                                     color: 'black'
                                 });
                                 break;
                             }
                             case '3': {
-                                this.draw.line(x1 + w1 / 2, y1 + h1 / 2, x2 + 2 * w2, y2 + h2).stroke({
+                                this.draw.line(x1 + w1 / 2, y1 + h1 / 2, x2+w2*0.2 / 2, y2 + h2*0.2 / 2).stroke({
                                     width: 3,
                                     color: 'black'
                                 });
@@ -166,9 +175,10 @@
     height: 22px
     background-color: forestgreen
     border: 1px solid black
+    margin-top: 50px
   .typo__label
     color: #880000
-    margin-top: 33px
+    /*margin-top: 33px*/
   .sct_categories
     border: #00BFFF 1px solid
     color: forestgreen

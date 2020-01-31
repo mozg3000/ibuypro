@@ -1,25 +1,25 @@
 <template lang="html">
-  <v-app id="inspire">
-    <v-card>
-      <v-toolbar flat>
+  <v-container id="inspire">
+    <v-card class="pa-6"  min-width="800">
+<!--      <v-toolbar flat>-->
 
-        <v-app-bar-nav-icon v-on:click="refreshCategories(); setHidden();"></v-app-bar-nav-icon>
+<!--        <v-app-bar-nav-icon v-on:click="refreshCategories(); setHidden();"></v-app-bar-nav-icon>-->
 
-        <v-text-field
-            flat
-            solo-inverted
-            hide-details
-            prepend-inner-icon="search"
-            label="Search"
-            class="hidden-sm-and-down"
-            v-model="search"
-            id="search"
-            @change="refreshCategories"
-        ></v-text-field>
-        <v-spacer></v-spacer>
+<!--        <v-text-field-->
+<!--            flat-->
+<!--            solo-inverted-->
+<!--            hide-details-->
+<!--            prepend-inner-icon="search"-->
+<!--            label="Search"-->
+<!--            class="hidden-sm-and-down"-->
+<!--            v-model="search"-->
+<!--            id="search"-->
+<!--            @change="refreshCategories"-->
+<!--        ></v-text-field>-->
+<!--        <v-spacer></v-spacer>-->
 
-        <v-spacer></v-spacer>
-        <template v-slot:extension>
+<!--        <v-spacer></v-spacer>-->
+<!--        <template v-slot:extension>-->
           <v-tabs
               v-model="tabs"
               fixed-tabs
@@ -32,12 +32,12 @@
               <v-icon>map</v-icon>
             </v-tab>
 
-            <v-tab
-                href="#mobile-tabs-5-2"
-                class="primary--text"
-            >
-              <v-icon>mdi-heart</v-icon>
-            </v-tab>
+<!--            <v-tab-->
+<!--                href="#mobile-tabs-5-2"-->
+<!--                class="primary&#45;&#45;text"-->
+<!--            >-->
+<!--              <v-icon>mdi-heart</v-icon>-->
+<!--            </v-tab>-->
 
             <v-tab
                 href="#mobile-tabs-5-3"
@@ -46,18 +46,26 @@
               <v-icon>info</v-icon>
             </v-tab>
           </v-tabs>
-        </template>
-      </v-toolbar>
+<!--        </template>-->
+<!--      </v-toolbar>-->
 
-      <v-tabs-items v-model="tabs">
+      <v-tabs-items v-model="tabs"  >
         <v-tab-item
             :value="'mobile-tabs-5-1'"
         >
-          <v-card flat>
-            <v-card-text>
-              <router-link :to="{name: 'mapdraw', params:{id: id}}">Нарисовать\редактировать карту</router-link>
-            </v-card-text>
-            <SVGView :id="id"></SVGView>
+          <v-card flat pa-8 mt-4 min-height="800">
+
+<!--              <router-link-->
+<!--                  :to="{name: 'mapdraw', params:{id: id}}"-->
+<!--                  v-if = "$store.getters.isAdmin"-->
+<!--              >Нарисовать\редактировать карту</router-link>-->
+            <v-btn text small class="mt-8" color="info"
+                   v-if = "$store.getters.isAdmin"
+                    @click="draw">
+              Нарисовать\редактировать карту
+            </v-btn>
+
+            <SVGView :id="id" ></SVGView>
           </v-card>
 <!--          <v-list >-->
 <!--            <v-list-group-->
@@ -77,9 +85,20 @@
         <v-tab-item
             :value="'mobile-tabs-5-3'"
         >
-          <v-card flat>
-            <router-link :to="{name: 'shopAdd', params:{shop:shop}}">редактировать данные</router-link>
-            <v-card-text>
+          <v-card flat
+                  min-width="800"
+                  max-width="1980"
+                  min-height="800">
+<!--            <router-link-->
+<!--                :to="{name: 'shopAdd', params:{shop:shop}}"-->
+<!--                v-if="$store.getters.isAdmin"-->
+<!--            >редактировать данные</router-link>-->
+            <v-btn text small class="mt-8" color="info"
+                   v-if = "$store.getters.isAdmin"
+                   @click="editDescription">
+              редактировать данные
+            </v-btn>
+            <v-card-text style="max-width: 800px; margin-top: 50px">
               <h2>{{shop.ShopName}}</h2>
               <h3>{{shop.ShopAddress}}</h3>
               <p>
@@ -89,13 +108,19 @@
               </p>
               <p><strong>{{shop.description}}</strong></p>
             </v-card-text>
+            <v-img
+                src="https://via.placeholder.com/800x400"
+                class="white--text align-end"
+                gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
+                style="margin: 20px auto"
+            ></v-img>
           </v-card>
         </v-tab-item>
       </v-tabs-items>
 
     </v-card>
 
-  </v-app>
+  </v-container>
 
 </template>
 
@@ -120,6 +145,12 @@
             search: ''
         }),
         methods: {
+            editDescription(){
+                this.$router.push({name: 'shopAdd', params:{shop:this.shop}});
+            },
+            draw(){
+                this.$router.push({name: 'mapdraw', params:{id: this.id}});
+            },
             getPost() {
                 getData('/shops/' + this.id).then(res => {
                     // console.log(res.data);
@@ -207,3 +238,9 @@
         }
     }
 </script>
+
+<style scoped lang="sass">
+  h2,h3, p
+    margin: 5px 0
+
+</style>

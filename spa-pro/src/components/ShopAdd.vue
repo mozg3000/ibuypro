@@ -1,20 +1,44 @@
 <template lang="html">
-  <v-app id="inspire">
-    <v-card>
-      <form action="#" name="addShop">
-        <input type="text" placeholder="Название" v-model="ShopName"/><br>
-        <input type="text" placeholder="Адресс" v-model="ShopAddress"/><br>
-        <input type="email" placeholder="Почта" v-model="ShopEmail"/><br>
-        <input type="number" placeholder="Телефон" v-model="ShopPhone"/><br>
-        <textarea placeholder="Описание" v-model="description"/><br>
-        <input type="submit" value="Добавить" @click.prevent.stop="addShop">
-      </form>
+<!--  <v-app id="inspire">-->
+<!--    <v-card>-->
+<!--      <form action="#" name="addShop">-->
+<!--        <input type="text" placeholder="Название" v-model="ShopName"/><br>-->
+<!--        <input type="text" placeholder="Адресс" v-model="ShopAddress"/><br>-->
+<!--        <input type="email" placeholder="Почта" v-model="ShopEmail"/><br>-->
+<!--        <input type="number" placeholder="Телефон" v-model="ShopPhone"/><br>-->
+<!--        <textarea placeholder="Описание" v-model="description"/><br>-->
+<!--        <input type="submit" value="Добавить\Изменить" @click.prevent.stop="addShop">-->
+<!--      </form>-->
 
 
-    </v-card>
+<!--    </v-card>-->
 
-  </v-app>
-
+<!--  </v-app>-->
+  <form>
+    <v-text-field
+        label="Название"
+        required
+        v-model="ShopName"
+    ></v-text-field>
+    <v-text-field
+        v-model="ShopAddress"
+        label="Адресс"
+    ></v-text-field>
+    <v-text-field
+        label="E-mail"
+        v-model="ShopEmail"
+    ></v-text-field>
+    <v-text-field
+        label="Телефон"
+        v-model="ShopPhone"
+    ></v-text-field>
+    <v-textarea
+        label="Описание"
+        v-model="description"
+        height="200"
+    ></v-textarea>
+    <v-btn class="mr-4" @click.prevent.stop="addShop">Добавить\Изменить</v-btn>
+  </form>
 </template>
 
 <script>
@@ -46,7 +70,7 @@
                         description: this.description
                     });
                     this.$router.push({name: 'shop', params: {id: this.shop.id}});
-                    // console.log(res);
+                    console.log(res);
                 }else{
                     let res = await postData('shops', {
                         ShopName: this.ShopName,
@@ -74,6 +98,8 @@
     }
 </script>
 <style scoped lang="sass">
+  form
+    min-width: 600px
   input, textarea
     border: 1px solid black
     margin: 5px auto

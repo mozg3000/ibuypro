@@ -54,6 +54,7 @@ export default new Vuex.Store({
             state.status = '';
             state.token = '';
             state.username = '';
+            state.admin = false;
 
         },
     },

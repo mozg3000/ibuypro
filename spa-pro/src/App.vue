@@ -74,22 +74,21 @@
             </v-list-item-content>
           </v-list-item>
         </template>
-            <div v-if="$store.getters.isAuthenticated">
-              <div class="pa-2">
-              <v-btn block @click.prevent="logout"><v-icon left>lock</v-icon>Logout</v-btn>
-              </div>
-            </div>
-            <div v-else>
-              <div class="pa-2">
-              <v-btn block @click.prevent="signIn"><v-icon left>lock_open</v-icon>Login</v-btn>
-              </div>
-              <div class="pa-2">
-              <v-btn block @click.prevent="signUp"><v-icon left>assignment_ind</v-icon>Signup</v-btn>
-              </div>
-            </div>
-
-
       </v-list>
+
+      <div v-if="$store.getters.isAuthenticated">
+      <div class="pa-2">
+        <v-btn block @click.prevent="logout"><v-icon left>lock</v-icon>Logout</v-btn>
+      </div>
+    </div>
+      <div v-else>
+        <div class="pa-2">
+          <v-btn block @click.prevent="signIn"><v-icon left>lock_open</v-icon>Login</v-btn>
+        </div>
+        <div class="pa-2">
+          <v-btn block @click.prevent="signUp"><v-icon left>assignment_ind</v-icon>Signup</v-btn>
+        </div>
+      </div>
     </v-navigation-drawer>
     <v-app-bar
         :clipped-left="$vuetify.breakpoint.lgAndUp"
@@ -103,19 +102,19 @@
       >
         <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
         <router-link :to="{ name: 'home'}">
-          <span class="hidden-sm-and-down display-1 font-weight-black red--text">
-            IBuypro
+          <span class="hidden-sm-and-down title font-weight-black blue--text lighten-2">
+            IBuypro logo
           </span>
       </router-link>
       </v-toolbar-title>
-      <v-text-field
-          flat
-          solo-inverted
-          hide-details
-          prepend-inner-icon="search"
-          label="Search"
-          class="hidden-sm-and-down"
-      ></v-text-field>
+<!--      <v-text-field-->
+<!--          flat-->
+<!--          solo-inverted-->
+<!--          hide-details-->
+<!--          prepend-inner-icon="search"-->
+<!--          label="Search"-->
+<!--          class="hidden-sm-and-down"-->
+<!--      ></v-text-field>-->
       <v-spacer></v-spacer>
 <!--      <div v-if="$store.getters.isAuthenticated">-->
 <!--        <a @click.prevent="logout" class="display-1 white&#45;&#45;text" >Logout {{username}}</a>-->
@@ -127,22 +126,22 @@
 <!--      </div>-->
       <v-spacer></v-spacer>
 
-      <v-btn
-          icon
-          large
-          @click="dialogAuthorization = !dialogAuthorization"
-      >
-        <v-avatar
-            size="32px"
-            item
-        >
-          <v-img
-              src="https://cdn.vuetifyjs.com/images/logos/logo.svg"
-              alt="Vuetify"
-          >
-          </v-img>
-        </v-avatar>
-      </v-btn>
+<!--      <v-btn-->
+<!--          icon-->
+<!--          large-->
+<!--          @click="dialogAuthorization = !dialogAuthorization"-->
+<!--      >-->
+<!--        <v-avatar-->
+<!--            size="32px"-->
+<!--            item-->
+<!--        >-->
+<!--          <v-img-->
+<!--              src="https://cdn.vuetifyjs.com/images/logos/logo.svg"-->
+<!--              alt="Vuetify"-->
+<!--          >-->
+<!--          </v-img>-->
+<!--        </v-avatar>-->
+<!--      </v-btn>-->
     </v-app-bar>
     <v-content>
 
@@ -350,12 +349,10 @@
 </template>
 
 <script>
-    import NavigationSideMenu from "./components/NavigationSideMenu";
     import store from './store/index';
 
     export default {
         components: {
-            NavigationSideMenu
         },
         data: () => ({
             dialog: false,
@@ -366,15 +363,15 @@
             items: [
                 {icon: 'home', text: 'Главная', url: {name: 'home'}},
                 {icon: 'shop', text: 'Магазины', url: {name: 'shops'}},
-                {
-                    icon: 'person',
-                    text: 'Профиль',
-                    'icon-alt': 'keyboard_arrow_down',
-                    model: false,
-                    children: [
-                        {icon: 'add', text: 'Create label'},
-                    ],
-                },
+                // {
+                //     icon: 'keyboard_arrow_up',
+                //     text: 'Профиль',
+                //     'icon-alt': 'person',
+                //     model: false,
+                //     children: [
+                //         {icon: 'add', text: 'Create label'},
+                //     ],
+                // },
                 // {icon: 'history', text: 'Frequently contacted'},
                 // {icon: 'content_copy', text: 'Duplicates'},
                 // {
