@@ -102,8 +102,8 @@
       >
         <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
         <router-link :to="{ name: 'home'}">
-          <span class="hidden-sm-and-down display-1 font-weight-black red--text">
-            IBuypro
+          <span class="hidden-sm-and-down title font-weight-black blue--text lighten-2">
+            IBuypro logo
           </span>
       </router-link>
       </v-toolbar-title>
@@ -349,12 +349,10 @@
 </template>
 
 <script>
-    import NavigationSideMenu from "./components/NavigationSideMenu";
     import store from './store/index';
 
     export default {
         components: {
-            NavigationSideMenu
         },
         data: () => ({
             dialog: false,

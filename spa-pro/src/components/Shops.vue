@@ -1,62 +1,103 @@
 <template>
-  <v-card
-      class="mx-auto"
-      max-width="500"
-  >
-    <v-container fluid>
+<!--  <v-card-->
+<!--      class="mx-auto"-->
+<!--      max-width="500"-->
+<!--  >-->
+  <v-container>
+    <v-row dense>
+      <v-col cols="12"
+             v-for="card in shops"
+                   :key="card.id">
+                <v-card
+                    color="#E1F5FE"
+                >
+                  <router-link :to="{name:'shop', params: {id: card.id}}">
+                  <div class="d-flex flex-no-wrap justify-space-between">
+                    <div>
+                      <v-card-title
+                          class="headline"
+                          v-text="card.ShopName"
+                      ></v-card-title>
+                      <v-card-subtitle v-text="card.ShopAddress"></v-card-subtitle>
+                    </div>
 
-      <v-row dense>
-        <v-col
-            v-for="card in shops"
-            :key="card.id"
-            :cols="card.Flex"
-        >
-          <v-card>
-            <router-link :to="{name:'shop', params: {id: card.id}}">
-              <v-img
-                  src="https://via.placeholder.com/400x200"
-                  class="white--text align-end"
-                  gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
-                  height="200px"
-              >
-                <v-card-title v-text="card.ShopName+' ' +card.ShopAddress"></v-card-title>
-              </v-img>
-            </router-link>
-            <v-card-actions>
-<!--              <v-spacer></v-spacer>-->
+                    <v-avatar
+                        class="ma-3"
+                        size="125"
+                        tile
+                    >
+                      <v-img :src="img"></v-img>
+                    </v-avatar>
+                  </div>
+                  </router-link>
+<!--                  <v-card-actions>-->
+<!--                    <v-btn text>Listen Now</v-btn>-->
+<!--                  </v-card-actions>-->
+                </v-card>
+              </v-col>
 
-<!--              <v-btn icon>-->
-<!--                <v-icon>mdi-heart</v-icon>-->
-<!--              </v-btn>-->
 
-<!--              <v-btn icon>-->
-<!--                <v-icon>mdi-bookmark</v-icon>-->
-<!--              </v-btn>-->
+            </v-row>
+          </v-container>
+        <!--    <v-container >-->
 
-<!--              <v-btn icon>-->
-<!--                <v-icon>mdi-share-variant</v-icon>-->
-<!--              </v-btn>-->
-            </v-card-actions>
+<!--      <v-row dense-->
+<!--             >-->
+<!--        <v-col-->
+<!--            v-for="card in shops"-->
+<!--            :key="card.id"-->
+<!--            cols="12"-->
+<!--            sm-6-->
+<!--        >-->
+<!--          <v-card-->
+<!--              max-width="400"-->
+<!--              class="mx-auto">-->
+<!--            <router-link :to="{name:'shop', params: {id: card.id}}">-->
+<!--              <v-img-->
+<!--                  src="https://via.placeholder.com/400x200"-->
+<!--                  class="white&#45;&#45;text align-end"-->
+<!--                  gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"-->
+<!--                  height="200px"-->
+<!--                  width="400px"-->
+<!--              >-->
+<!--                <v-card-title v-text="card.ShopName+' ' +card.ShopAddress"></v-card-title>-->
+<!--              </v-img>-->
+<!--            </router-link>-->
+<!--            <v-card-actions>-->
+<!--&lt;!&ndash;              <v-spacer></v-spacer>&ndash;&gt;-->
 
-          </v-card>
-        </v-col>
-      </v-row>
-      <router-link
-          :to="{ name: 'shopAdd', parapms:{id:null}}"
-          v-if="$store.getters.isAdmin">
-        <v-btn
-            bottom
-            color="pink"
-            dark
-            fab
-            fixed
-            right
-        >
-          <v-icon>add</v-icon>
-        </v-btn>
-      </router-link>
-    </v-container>
-  </v-card>
+<!--&lt;!&ndash;              <v-btn icon>&ndash;&gt;-->
+<!--&lt;!&ndash;                <v-icon>mdi-heart</v-icon>&ndash;&gt;-->
+<!--&lt;!&ndash;              </v-btn>&ndash;&gt;-->
+
+<!--&lt;!&ndash;              <v-btn icon>&ndash;&gt;-->
+<!--&lt;!&ndash;                <v-icon>mdi-bookmark</v-icon>&ndash;&gt;-->
+<!--&lt;!&ndash;              </v-btn>&ndash;&gt;-->
+
+<!--&lt;!&ndash;              <v-btn icon>&ndash;&gt;-->
+<!--&lt;!&ndash;                <v-icon>mdi-share-variant</v-icon>&ndash;&gt;-->
+<!--&lt;!&ndash;              </v-btn>&ndash;&gt;-->
+<!--            </v-card-actions>-->
+
+<!--          </v-card>-->
+<!--        </v-col>-->
+<!--      </v-row>-->
+<!--      <router-link-->
+<!--          :to="{ name: 'shopAdd', parapms:{id:null}}"-->
+<!--          v-if="$store.getters.isAdmin">-->
+<!--        <v-btn-->
+<!--            bottom-->
+<!--            color="pink"-->
+<!--            dark-->
+<!--            fab-->
+<!--            fixed-->
+<!--            right-->
+<!--        >-->
+<!--          <v-icon>add</v-icon>-->
+<!--        </v-btn>-->
+<!--      </router-link>-->
+<!--    </v-container>-->
+<!--  </v-card>-->
 </template>
 
 <script>
@@ -65,7 +106,7 @@
         // name: "Shops",
         data: () => ({
             shops: [],
-            endpoint: 'db.json',
+            img: "https://via.placeholder.com/60x60"
         }),
 
         created() {
@@ -100,6 +141,7 @@
     };
 </script>
 
-<style scoped>
-
+<style scoped lang="sass">
+  a
+    text-decoration: none
 </style>
