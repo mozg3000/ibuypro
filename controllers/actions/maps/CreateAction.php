@@ -43,7 +43,7 @@ class CreateAction extends Action
             $model = new Connections([
                 'firstN' => $link['from'],
                 'secondN' => $link['to'],
-                'id_shops'=>1,
+                'id_shops'=>$id,
                 'weight' => 50
             ]);
             $model->save();
